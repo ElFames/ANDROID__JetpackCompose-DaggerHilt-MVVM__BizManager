@@ -84,7 +84,7 @@ class AuthService @Inject constructor(
         return try {
             if (myToken == null) false
             else {
-                val message = authAPI.audience("user/audience", "Bearer $myToken").message()
+                val message = authAPI.audience("auth/audience", "Bearer $myToken").message()
                 message != "Unauthorized"
             }
         } catch (e: Exception) {

@@ -1,6 +1,5 @@
 package fames.systems.bizmanager.application.dashboard.ui.components
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -9,10 +8,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import fames.systems.bizmanager.application.dashboard.domain.models.Filter
-import fames.systems.bizmanager.application.dashboard.ui.DashboardViewModel
-import fames.systems.bizmanager.resources.buttonColor
-import fames.systems.bizmanager.resources.card
+import fames.systems.bizmanager.application.dashboard.ui.viewmodel.DashboardViewModel
+import fames.systems.bizmanager.resources.cardContainerColor
 import fames.systems.bizmanager.resources.orange
 
 @Composable
@@ -22,7 +19,7 @@ fun ShowStatistics(viewModel: DashboardViewModel) {
     val income: List<String> by viewModel.income.observeAsState(initial = listOf())
     val expenses: List<String> by viewModel.expenses.observeAsState(initial = listOf())
     val profit: List<String> by viewModel.profit.observeAsState(initial = listOf())
-    val numSales: List<String> by viewModel.numSales.observeAsState(initial = listOf())
+    val numSales: List<String> by viewModel.numOfSales.observeAsState(initial = listOf())
 
     LazyVerticalGrid(
         columns = GridCells.Adaptive(150.dp),
@@ -54,21 +51,21 @@ fun ShowStatistics(viewModel: DashboardViewModel) {
             DashboardCard(
                 title = "Ventas",
                 content = numSales,
-                backgroundColor = card
+                backgroundColor = cardContainerColor
             )
         }
         item {
             DashboardCard(
                 title = "Más Vendidos",
                 content = bestSellers,
-                backgroundColor = card
+                backgroundColor = cardContainerColor
             )
         }
         item {
             DashboardCard(
                 title = "Más Rentables",
                 content = moreProfit,
-                backgroundColor = card
+                backgroundColor = cardContainerColor
             )
         }
 

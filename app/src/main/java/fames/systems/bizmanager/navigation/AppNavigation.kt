@@ -10,10 +10,13 @@ import fames.systems.bizmanager.application.auth.ui.login.LoginScreen
 import fames.systems.bizmanager.application.auth.ui.login.LoginViewModel
 import fames.systems.bizmanager.application.auth.ui.register.RegisterScreen
 import fames.systems.bizmanager.application.auth.ui.register.RegisterViewModel
-import fames.systems.bizmanager.application.clients.ui.ClientsScreen
-import fames.systems.bizmanager.application.clients.ui.ClientsViewModel
-import fames.systems.bizmanager.application.dashboard.ui.DashboardScreen
-import fames.systems.bizmanager.application.dashboard.ui.DashboardViewModel
+import fames.systems.bizmanager.application.clients.ui.screens.ClientsScreen
+import fames.systems.bizmanager.application.clients.ui.screens.NewClientScreen
+import fames.systems.bizmanager.application.clients.ui.viewmodel.ClientsViewModel
+import fames.systems.bizmanager.application.clients.ui.viewmodel.NewClientViewModel
+import fames.systems.bizmanager.application.dashboard.ui.screens.DashboardScreen
+import fames.systems.bizmanager.application.dashboard.ui.screens.HistoryStatisticsScreen
+import fames.systems.bizmanager.application.dashboard.ui.viewmodel.DashboardViewModel
 import fames.systems.bizmanager.application.products.ui.ProductViewModel
 import fames.systems.bizmanager.application.products.ui.ProductsScreen
 import fames.systems.bizmanager.application.settings.ui.SettingsScreen
@@ -46,11 +49,18 @@ fun AppNavigation() {
             val viewModel = hiltViewModel<DashboardViewModel>()
             DashboardScreen(viewModel, navController)
         }
+        composable(AppScreens.HistoryStatisticsScreen.route) {
+            HistoryStatisticsScreen(navController)
+        }
 
         // CLIENTS
         composable(AppScreens.ClientsScreen.route) {
             val viewModel = hiltViewModel<ClientsViewModel>()
             ClientsScreen(viewModel, navController)
+        }
+        composable(AppScreens.NewClientScreen.route) {
+            val viewModel = hiltViewModel<NewClientViewModel>()
+            NewClientScreen(viewModel, navController)
         }
 
         // TPV-POS

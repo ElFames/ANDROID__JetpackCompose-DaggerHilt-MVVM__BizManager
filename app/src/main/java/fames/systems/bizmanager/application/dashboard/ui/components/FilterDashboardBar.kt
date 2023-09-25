@@ -30,10 +30,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import fames.systems.bizmanager.R
 import fames.systems.bizmanager.application.dashboard.domain.models.Filter
-import fames.systems.bizmanager.application.dashboard.ui.DashboardViewModel
+import fames.systems.bizmanager.application.dashboard.ui.viewmodel.DashboardViewModel
 
 @Composable
-fun FilterBar(viewModel: DashboardViewModel, showCharts: Boolean, changeShowChartState: (Boolean) -> Unit) {
+fun FilterDashboardBar(viewModel: DashboardViewModel, showCharts: Boolean, changeShowChartState: (Boolean) -> Unit) {
     var selectedFilter by rememberSaveable { mutableStateOf(Filter.DIA) }
     LazyRow(
         modifier = Modifier

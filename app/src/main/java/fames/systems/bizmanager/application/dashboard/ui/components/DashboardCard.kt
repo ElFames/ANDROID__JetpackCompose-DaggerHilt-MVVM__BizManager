@@ -62,15 +62,15 @@ fun DashboardCard(title: String, content: List<String>, backgroundColor: Color) 
                 val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading_animation_circle))
                 var isPlaying by rememberSaveable { mutableStateOf(true) }
                 val progress by animateLottieCompositionAsState(composition = composition, isPlaying = isPlaying)
-                LaunchedEffect(key1 = progress) {
-                    if (progress == 1f) isPlaying = false
-                    if (progress == 0f) isPlaying = true
-                }
                 LottieAnimation(
                     modifier = Modifier.size(50.dp),
                     composition = composition,
                     progress = {progress}
                 )
+                LaunchedEffect(key1 = progress) {
+                    if (progress == 1f) isPlaying = false
+                    if (progress == 0f) isPlaying = true
+                }
             } else {
                 content.forEach { item ->
                     Text(

@@ -15,6 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.airbnb.lottie.RenderMode
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
@@ -28,11 +29,6 @@ fun ShowLoadingScreen() {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading_animation_circle))
     val progress by animateLottieCompositionAsState(composition = composition, isPlaying = isPlaying)
 
-    LaunchedEffect(key1 = progress) {
-        if (progress == 1f) isPlaying = true
-        if (progress == 0f) isPlaying = true
-
-    }
     Column(
         modifier = Modifier
             .background(color = authBackgroundColor)
@@ -44,7 +40,13 @@ fun ShowLoadingScreen() {
         LottieAnimation(
             modifier = Modifier.size(150.dp),
             composition = composition,
-            progress = { progress }
+            progress = { progress },
+            renderMode = RenderMode.AUTOMATIC,
         )
+        LaunchedEffect(key1 = progress) {
+            if (progress == 1f) isPlaying = false
+            if (progress == 0f) isPlaying = true
+            if (!isPlaying) isPlaying = true
+        }
     }
 }

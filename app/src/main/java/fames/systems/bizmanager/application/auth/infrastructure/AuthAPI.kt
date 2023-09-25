@@ -27,14 +27,14 @@ interface AuthAPI {
     ): Response<Boolean>
 
     @Headers("Content-Type: application/json")
-    @PUT("user/changePassword/{password}")
+    @PUT("auth/changePassword/{password}")
     suspend fun changePassword(
         @Path("password") newPassword: String,
         @Header("Authorization") authHeader: String
     ): Response<Boolean>
 
     @Headers("Content-Type: application/json")
-    @PUT("user/changeEmail/{email}")
+    @PUT("auth/changeEmail/{email}")
     suspend fun changeEmail(
         @Path("email") newEmail: String,
         @Header("Authorization") authHeader: String

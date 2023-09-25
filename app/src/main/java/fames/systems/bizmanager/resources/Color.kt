@@ -12,8 +12,8 @@ val Pink40 = Color(0xFF7D5260)
 
 val disabledButtonColor = Color(0xFF575757)
 val authBackgroundColor = Color(0xFF1F1F1F)
-val cardDashboardBackgroundColor = Color(0xFF2B2B2B)
 val buttonColor = Color(0xFF6AC34A)
-val card = Color(0xFF323F2D)
 
-val orange = Color(0xFF724616)
+
+val cardContainerColor = Color(0xFFCF64E7)
+val orange = Color(0xFFE4853D)
