@@ -41,7 +41,8 @@ class ClientsRepository @Inject constructor(
     fun getClients() = clients
     suspend fun loadClients(): MutableList<Client> {
         return clients.ifEmpty {
-            clients = clientsService.loadClients()
+            //clients = clientsService.loadClients()
+            clients = clientsTest
             originalClients.addAll(clients)
             clients
         }
@@ -59,16 +60,45 @@ class ClientsRepository @Inject constructor(
         }
         return clientRanking.sortedByDescending { it.second }
     }
+
+    suspend fun newClient(name: String, email: String, phone: String, address: String): Pair<Boolean, String> {
+        /*val reponseMessage = clientsService.insertClient(name, email, phone, address)
+        return if (reponseMessage == "No hay conexión con el servidor" || reponseMessage == "El telefono ya está en uso") {
+            Pair(false, reponseMessage)
+        } else {
+            val clientAdded = Client(
+                reponseMessage.toInt(),
+                name,
+                email,
+                phone,
+                address,
+                mutableListOf()
+            )
+            clients.add(clientAdded)
+            originalClients.add(clientAdded)
+            Pair(true, reponseMessage)
+        }*/
+        val id = (50..9999).random()
+        val testClient = Client((id..9999999).random(), name, email, phone, address, mutableListOf())
+        clients.add(testClient)
+        originalClients.add(testClient)
+        return Pair(true, testClient.id.toString())
+    }
+
+    fun getClient(clientId: String): Client {
+        val client = clients.find { it.id == clientId.toInt() }
+        return client!!
+    }
 }
 
-val clientsTest = MutableList(10) { clientId ->
+val clientsTest = MutableList(14) { clientId ->
     Client(
         id = clientId,
         name = "Cliente $clientId",
         email = "cliente$clientId@example.com",
         phone = "123-456-7890",
         address = "jacint verdaguer 7A 4-1",
-        purchases = List(10) { purchaseId ->
+        purchases = MutableList(20) { purchaseId ->
             Purchase(
                 id = UUID.randomUUID().toString(),
                 product = Product(
@@ -83,7 +113,7 @@ val clientsTest = MutableList(10) { clientId ->
                             quantity = clientId + 1,
                             quantityCurrency = if (purchaseId % 2 == 0) "g" else "ml"
                         )
-                     }
+                    }
                 ),
                 dateTime = getCurrentDateTime()
             )

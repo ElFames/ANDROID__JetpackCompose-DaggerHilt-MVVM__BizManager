@@ -3,11 +3,13 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
     id("kotlin-kapt")
+    id("org.jetbrains.kotlin.plugin.serialization")
+
 }
 
 android {
     namespace = "fames.systems.bizmanager"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "fames.systems.bizmanager"
@@ -40,6 +42,7 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
@@ -52,6 +55,7 @@ android {
 }
 
 dependencies {
+    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.compose.runtime:runtime-livedata:1.3.2")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
@@ -61,6 +65,10 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation("com.google.android.material:material:1.9.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.2")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.2")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

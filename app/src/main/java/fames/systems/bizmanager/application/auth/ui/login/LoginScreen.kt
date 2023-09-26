@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -21,12 +21,11 @@ import fames.systems.bizmanager.application.auth.ui.shared.HeaderImage
 import fames.systems.bizmanager.application.auth.ui.shared.HorizontalLine
 import fames.systems.bizmanager.application.auth.ui.login.components.PasswordTextField
 import fames.systems.bizmanager.application.auth.ui.shared.ShowLoadingScreen
-import fames.systems.bizmanager.navigation.AppScreens
 import fames.systems.bizmanager.resources.authBackgroundColor
 import fames.systems.bizmanager.resources.buttonColor
 
 @Composable
-fun LoginScreen(viewModel: LoginViewModel, navController: NavHostController) {
+fun LoginScreen(viewModel: LoginViewModel, navController: NavHostController, initApp: () -> Unit) {
     val isLoading: Boolean by viewModel.isLoading.observeAsState(initial = false)
     val loginError: Boolean by viewModel.isLoginError.observeAsState(initial = false)
     val isValidUser: Boolean by viewModel.isValidate.observeAsState(initial = false)
@@ -34,11 +33,13 @@ fun LoginScreen(viewModel: LoginViewModel, navController: NavHostController) {
     if (isLoading) ShowLoadingScreen()
     else {
         when {
-            isValidUser -> navController.navigate(AppScreens.DashboardScreen.route)
+            isValidUser -> {
+                initApp()
+            }
             loginError -> {
                 ShowLoginErrorDialog(
                     onConfirmation = { viewModel.hideLoginError() },
-                    icon = Icons.Default.Info
+                    icon = Icons.Default.Warning
                 )
             }
             else -> {

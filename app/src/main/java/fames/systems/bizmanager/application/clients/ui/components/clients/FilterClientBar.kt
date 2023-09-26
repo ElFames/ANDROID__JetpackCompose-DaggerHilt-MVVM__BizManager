@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.application.clients.ui.components
+package fames.systems.bizmanager.application.clients.ui.components.clients
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

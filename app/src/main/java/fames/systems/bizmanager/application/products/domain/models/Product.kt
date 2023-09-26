@@ -1,5 +1,8 @@
 package fames.systems.bizmanager.application.products.domain.models
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Product(
     val id: String,
     var name: String,
@@ -7,6 +10,7 @@ data class Product(
     val expenses: MutableList<SubProduct>
 )
 
+@Serializable
 data class SubProduct(
     val id: String,
     var name: String,

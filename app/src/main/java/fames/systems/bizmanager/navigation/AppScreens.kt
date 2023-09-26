@@ -10,6 +10,7 @@ sealed class AppScreens(val route: String) {
     object HistoryStatisticsScreen: AppScreens(route = "history_statistics")
 
     object ClientsScreen: AppScreens(route = "clients")
+    object ClientDetailScreen: AppScreens(route = "detail_client")
     object NewClientScreen: AppScreens(route = "new_client")
 
     object TpvPosScreen: AppScreens(route = "tpv_pos")

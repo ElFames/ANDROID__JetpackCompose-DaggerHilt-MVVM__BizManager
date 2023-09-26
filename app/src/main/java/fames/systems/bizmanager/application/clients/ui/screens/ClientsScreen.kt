@@ -2,6 +2,7 @@ package fames.systems.bizmanager.application.clients.ui.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -28,19 +29,15 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fames.systems.bizmanager.application.auth.ui.shared.HorizontalLine
 import fames.systems.bizmanager.application.clients.domain.models.Client
-import fames.systems.bizmanager.application.clients.ui.components.ClientRankingContainer
-import fames.systems.bizmanager.application.clients.ui.components.FilterClientBar
+import fames.systems.bizmanager.application.clients.ui.components.clients.ClientRankingContainer
+import fames.systems.bizmanager.application.clients.ui.components.clients.FilterClientBar
 import fames.systems.bizmanager.application.clients.ui.viewmodel.ClientsViewModel
 import fames.systems.bizmanager.application.dashboard.ui.screens.InsertTitle
-import fames.systems.bizmanager.navigation.NavMenu
-import fames.systems.bizmanager.navigation.NavMenuButton
-import fames.systems.bizmanager.resources.buttonColor
-import fames.systems.bizmanager.resources.cardContainerColor
-import fames.systems.bizmanager.resources.orange
+import fames.systems.bizmanager.navigation.AppScreens
+import fames.systems.bizmanager.navigation.SimpleNavMenu
 
 @Composable
 fun ClientsScreen(viewModel: ClientsViewModel, navController: NavHostController) {
-    var navMenuIsOpen by rememberSaveable { mutableStateOf(false) }
     var showRanking by rememberSaveable { mutableStateOf(false) }
     val clientToSearch by viewModel.clientToSearch.observeAsState(initial = "")
     val clients by viewModel.clients.observeAsState(initial = mutableListOf())
@@ -61,46 +58,38 @@ fun ClientsScreen(viewModel: ClientsViewModel, navController: NavHostController)
             { showRanking = !showRanking },
             { viewModel.getClientRanking() }
         )
-        if (showRanking) {
-            ClientRankingContainer(clientRanking)
-        }
-        ListGridClients(clients)
+            if (showRanking) {
+                ClientRankingContainer(clientRanking)
+            }
+            ListGridClients(clients, navController)
     }
-
-    Column(modifier = Modifier.padding(16.dp)) {
-        NavMenuButton { navMenuIsOpen = !navMenuIsOpen }
-        NavMenu(navMenuIsOpen, navController)
-    }
+    SimpleNavMenu(navController = navController)
 }
 
 @Composable
-fun ListGridClients(clients: List<Client>) {
-    val containerColors = listOf(cardContainerColor, orange, buttonColor)
-    var i = 0
+fun ListGridClients(clients: List<Client>, navController: NavHostController) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(160.dp),
         modifier = Modifier.padding(10.dp)
     ) {
         clients.forEach { client ->
-            val containerColor = containerColors[i]
-            if (i == containerColors.size - 1) i = 0 else i++
             item {
-                ClientInfoContainer(containerColor, client)
+                ClientInfoContainer(Color.White, client, navController)
             }
         }
     }
 }
 
 @Composable
-fun ClientInfoContainer(containerColor: Color, client: Client) {
+fun ClientInfoContainer(containerColor: Color, client: Client, navController: NavHostController) {
     Card(
+        modifier = Modifier.padding(10.dp).clickable { navController.navigate(route = AppScreens.ClientDetailScreen.route + "/${client.id}") },
         elevation = CardDefaults.cardElevation(4.dp),
-        modifier = Modifier.padding(10.dp),
         colors = CardDefaults.cardColors(
             containerColor = containerColor,
-            contentColor = Color.White
+            contentColor = Color.Black
         ),
-        border = BorderStroke(width = 2.dp, color = Color.Gray),
+        border = BorderStroke(width = 1.dp, color = Color.DarkGray),
         shape = MaterialTheme.shapes.small
     ) {
         Column(
@@ -111,7 +100,11 @@ fun ClientInfoContainer(containerColor: Color, client: Client) {
             Spacer(modifier = Modifier.height(4.dp))
             Text(text = client.phone, fontFamily = FontFamily.Serif, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.height(7.dp))
-            Text(text = "Nº Compras: ${client.purchases.size}", fontFamily = FontFamily.Serif, color = Color.LightGray)
+            Text(
+                text = "Nº Compras: ${client.purchases.size}",
+                fontFamily = FontFamily.Serif,
+                color = Color.LightGray
+            )
         }
     }
 }

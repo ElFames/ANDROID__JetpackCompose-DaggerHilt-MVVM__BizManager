@@ -10,8 +10,10 @@ import fames.systems.bizmanager.application.auth.ui.login.LoginScreen
 import fames.systems.bizmanager.application.auth.ui.login.LoginViewModel
 import fames.systems.bizmanager.application.auth.ui.register.RegisterScreen
 import fames.systems.bizmanager.application.auth.ui.register.RegisterViewModel
+import fames.systems.bizmanager.application.clients.ui.screens.ClientDetailScreen
 import fames.systems.bizmanager.application.clients.ui.screens.ClientsScreen
 import fames.systems.bizmanager.application.clients.ui.screens.NewClientScreen
+import fames.systems.bizmanager.application.clients.ui.viewmodel.ClientDetailViewModel
 import fames.systems.bizmanager.application.clients.ui.viewmodel.ClientsViewModel
 import fames.systems.bizmanager.application.clients.ui.viewmodel.NewClientViewModel
 import fames.systems.bizmanager.application.dashboard.ui.screens.DashboardScreen
@@ -37,7 +39,7 @@ fun AppNavigation() {
         }
         composable(AppScreens.LoginScreen.route) {
             val viewModel = hiltViewModel<LoginViewModel>()
-            LoginScreen(viewModel, navController)
+            LoginScreen(viewModel, navController) { navController.navigate(AppScreens.DashboardScreen.route) }
         }
         composable(AppScreens.RegisterScreen.route) {
             val viewModel = hiltViewModel<RegisterViewModel>()
@@ -61,6 +63,11 @@ fun AppNavigation() {
         composable(AppScreens.NewClientScreen.route) {
             val viewModel = hiltViewModel<NewClientViewModel>()
             NewClientScreen(viewModel, navController)
+        }
+        composable(AppScreens.ClientDetailScreen.route + "/{clientId}") { navBackStackEntry ->
+            val clientId = navBackStackEntry.arguments?.getString("clientId") ?: ""
+            val viewModel = hiltViewModel<ClientDetailViewModel>()
+            ClientDetailScreen(viewModel, navController, clientId)
         }
 
         // TPV-POS

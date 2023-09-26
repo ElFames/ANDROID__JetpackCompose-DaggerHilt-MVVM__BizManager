@@ -52,7 +52,7 @@ fun DashboardCard(title: String, content: List<String>, backgroundColor: Color) 
                 text = title,
                 style = TextStyle(
                     fontSize = 18.sp,
-                    color = Color.White,
+                    color = Color.Black,
                     fontWeight = FontWeight.Bold
                 ),
                 modifier = Modifier.padding(bottom = 8.dp),
@@ -75,7 +75,7 @@ fun DashboardCard(title: String, content: List<String>, backgroundColor: Color) 
                 content.forEach { item ->
                     Text(
                         text = item,
-                        style = TextStyle(fontSize = 18.sp, color = Color.White),
+                        style = TextStyle(fontSize = 18.sp, color = Color.Black),
                         modifier = Modifier.padding(bottom = 4.dp),
                         textAlign = TextAlign.Center
                     )

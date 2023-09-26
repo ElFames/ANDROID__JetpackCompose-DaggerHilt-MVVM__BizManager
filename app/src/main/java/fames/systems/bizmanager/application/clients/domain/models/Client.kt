@@ -8,5 +8,5 @@ data class Client(
     val email: String,
     val phone: String,
     val address: String,
-    val purchases: List<Purchase>
+    val purchases: MutableList<Purchase>
 )

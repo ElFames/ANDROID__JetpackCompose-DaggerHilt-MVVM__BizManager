@@ -1,7 +1,9 @@
 package fames.systems.bizmanager.domain
 
+import kotlinx.serialization.Serializable
 import java.util.Calendar
 
+@Serializable
 data class DateTime(
     val day: Int,
     val month: Int,

@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.application.clients.ui.components
+package fames.systems.bizmanager.application.clients.ui.components.clients
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.height
@@ -30,7 +30,7 @@ fun ClientSearcher(clientToSearch: String, onUserToSearchChange: (String) -> Uni
     val keyboardController = LocalSoftwareKeyboardController.current
     OutlinedTextField(
         modifier = Modifier
-            .height(73.dp)
+            .height(76.dp)
             .width(280.dp)
             .padding(12.dp)
             .background(color = Color.LightGray),

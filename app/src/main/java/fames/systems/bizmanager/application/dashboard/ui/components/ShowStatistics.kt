@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import fames.systems.bizmanager.application.dashboard.ui.viewmodel.DashboardViewModel
 import fames.systems.bizmanager.resources.cardContainerColor
@@ -30,42 +31,42 @@ fun ShowStatistics(viewModel: DashboardViewModel) {
             DashboardCard(
                 title = "Ingresos",
                 content = income,
-                backgroundColor = orange
+                backgroundColor = Color.White
             )
         }
         item {
             DashboardCard(
                 title = "Gastos",
                 content = expenses,
-                backgroundColor = orange
+                backgroundColor = Color.White
             )
         }
         item {
             DashboardCard(
                 title = "Beneficios",
                 content = profit,
-                backgroundColor = orange
+                backgroundColor = Color.White
             )
         }
         item {
             DashboardCard(
                 title = "Ventas",
                 content = numSales,
-                backgroundColor = cardContainerColor
+                backgroundColor = Color.White
             )
         }
         item {
             DashboardCard(
                 title = "Más Vendidos",
                 content = bestSellers,
-                backgroundColor = cardContainerColor
+                backgroundColor = Color.White
             )
         }
         item {
             DashboardCard(
                 title = "Más Rentables",
                 content = moreProfit,
-                backgroundColor = cardContainerColor
+                backgroundColor = Color.White
             )
         }
 

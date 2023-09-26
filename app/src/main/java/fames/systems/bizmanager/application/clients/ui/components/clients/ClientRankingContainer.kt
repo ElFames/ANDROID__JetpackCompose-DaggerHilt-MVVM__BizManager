@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.application.clients.ui.components
+package fames.systems.bizmanager.application.clients.ui.components.clients
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.padding
@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import fames.systems.bizmanager.resources.buttonColor
 
 @Composable
 fun ClientRankingContainer(clientRanking: List<Pair<String, String>>) {
@@ -22,8 +21,10 @@ fun ClientRankingContainer(clientRanking: List<Pair<String, String>>) {
         border = BorderStroke(width = 2.dp, color = Color.Gray),
         shape = MaterialTheme.shapes.small
     ) {
-        clientRanking.subList(0,5).forEachIndexed { i, client ->
-            ClientRow(i, client)
-        }
+        if(clientRanking.isNotEmpty()) {
+            clientRanking.subList(0,5).forEachIndexed { i, client ->
+        ClientRow(i, client)
+    }
+    }
     }
 }

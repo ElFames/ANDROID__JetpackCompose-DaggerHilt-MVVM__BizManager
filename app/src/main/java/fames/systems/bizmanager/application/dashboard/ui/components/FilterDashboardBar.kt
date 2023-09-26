@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import fames.systems.bizmanager.R
 import fames.systems.bizmanager.application.dashboard.domain.models.Filter
 import fames.systems.bizmanager.application.dashboard.ui.viewmodel.DashboardViewModel
+import fames.systems.bizmanager.resources.buttonColor
 
 @Composable
 fun FilterDashboardBar(viewModel: DashboardViewModel, showCharts: Boolean, changeShowChartState: (Boolean) -> Unit) {
@@ -72,8 +73,9 @@ fun FilterDashboardBar(viewModel: DashboardViewModel, showCharts: Boolean, chang
 
 @Composable
 fun InfoButton(showCharts: Boolean, onClickInfo: () -> Unit) {
-    val icon = if (showCharts) R.drawable.grid_icon else R.drawable.grid_icon_green
-    Card(colors = CardDefaults.cardColors(containerColor = Color.Gray), shape = CircleShape) {
+    val icon =  R.drawable.grid_icon
+    val containerColor = if (!showCharts) buttonColor else Color.Gray
+    Card(colors = CardDefaults.cardColors(containerColor = containerColor), shape = CircleShape) {
         Image(
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -88,8 +90,9 @@ fun InfoButton(showCharts: Boolean, onClickInfo: () -> Unit) {
 
 @Composable
 fun ChartButton(showCharts: Boolean, onClickChart: () -> Unit) {
-    val icon = if (!showCharts) R.drawable.chart_icon else R.drawable.chart_icon_green
-    Card(colors = CardDefaults.cardColors(containerColor = Color.Gray), shape = CircleShape) {
+    val icon = R.drawable.chart_icon
+    val containerColor = if (showCharts) buttonColor else Color.Gray
+    Card(colors = CardDefaults.cardColors(containerColor = containerColor), shape = CircleShape) {
         Image(
             contentScale = ContentScale.Crop,
             modifier = Modifier
