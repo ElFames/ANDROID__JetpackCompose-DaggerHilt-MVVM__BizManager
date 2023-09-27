@@ -10,8 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import fames.systems.bizmanager.application.dashboard.ui.viewmodel.DashboardViewModel
-import fames.systems.bizmanager.resources.cardContainerColor
-import fames.systems.bizmanager.resources.orange
 
 @Composable
 fun ShowStatistics(viewModel: DashboardViewModel) {

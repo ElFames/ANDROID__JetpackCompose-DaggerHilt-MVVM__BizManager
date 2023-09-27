@@ -69,6 +69,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.2")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.2")
+    implementation("androidx.wear.compose:compose-material3:1.0.0-alpha12")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -92,6 +93,7 @@ dependencies {
     implementation ("androidx.datastore:datastore-preferences:1.0.0")
     implementation ("com.airbnb.android:lottie-compose:6.0.0")
     implementation ("com.github.tehras:charts:0.2.4-alpha")
+    implementation("com.exyte:animated-navigation-bar:1.0.0")
 }
 kapt {
     correctErrorTypes = true

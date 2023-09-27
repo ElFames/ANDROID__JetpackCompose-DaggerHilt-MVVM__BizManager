@@ -10,10 +10,8 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
+
 val disabledButtonColor = Color(0xFF575757)
 val authBackgroundColor = Color(0xFF1F1F1F)
 val buttonColor = Color(0xFF6AC34A)
-
-
-val cardContainerColor = Color(0xFFCF64E7)
-val orange = Color(0xFFE4853D)
+val menuColor = Color.DarkGray

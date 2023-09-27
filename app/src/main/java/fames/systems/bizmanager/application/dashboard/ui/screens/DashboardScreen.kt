@@ -27,23 +27,18 @@ import fames.systems.bizmanager.application.dashboard.ui.viewmodel.DashboardView
 import fames.systems.bizmanager.application.dashboard.ui.components.FilterDashboardBar
 import fames.systems.bizmanager.application.dashboard.ui.components.MyBarChart
 import fames.systems.bizmanager.application.dashboard.ui.components.ShowStatistics
-import fames.systems.bizmanager.navigation.AppScreens
-import fames.systems.bizmanager.navigation.NavMenuContainer
-import fames.systems.bizmanager.navigation.NavMenuButton
-import fames.systems.bizmanager.navigation.SimpleNavMenu
 import fames.systems.bizmanager.resources.buttonColor
 
 @Composable
-fun DashboardScreen(viewModel: DashboardViewModel, navController: NavHostController) {
-    navController.clearBackStack(AppScreens.AuthScreen.route)
-    navController.clearBackStack(AppScreens.RegisterScreen.route)
-    navController.clearBackStack(AppScreens.LoginScreen.route)
-
+fun DashboardScreen(
+    viewModel: DashboardViewModel
+) {
     var showCharts by rememberSaveable { mutableStateOf(false) }
-
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(color = Color.LightGray)
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color.LightGray)
+            .padding(bottom = 70.dp)
     ) {
         InsertTitle("Panel de Estadísticas")
         HorizontalLine(color = Color.LightGray)
@@ -51,14 +46,15 @@ fun DashboardScreen(viewModel: DashboardViewModel, navController: NavHostControl
         if (showCharts) MyBarChart()
         else ShowStatistics(viewModel)
     }
-    SimpleNavMenu(navController = navController)
 }
 
 @Composable
 fun InsertTitle(title: String) {
-    Row(modifier = Modifier
-        .fillMaxWidth()
-        .background(color = Color.DarkGray), horizontalArrangement = Arrangement.End) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(color = Color.DarkGray), horizontalArrangement = Arrangement.Center
+    ) {
         Text(
             text = title,
             style = TextStyle(

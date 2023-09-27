@@ -1,10 +1,10 @@
-package fames.systems.bizmanager.navigation
+package fames.systems.bizmanager.navigation.graphs
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import fames.systems.bizmanager.application.auth.ui.auth.AuthScreen
 import fames.systems.bizmanager.application.auth.ui.login.LoginScreen
 import fames.systems.bizmanager.application.auth.ui.login.LoginViewModel
@@ -17,7 +17,6 @@ import fames.systems.bizmanager.application.clients.ui.viewmodel.ClientDetailVie
 import fames.systems.bizmanager.application.clients.ui.viewmodel.ClientsViewModel
 import fames.systems.bizmanager.application.clients.ui.viewmodel.NewClientViewModel
 import fames.systems.bizmanager.application.dashboard.ui.screens.DashboardScreen
-import fames.systems.bizmanager.application.dashboard.ui.screens.HistoryStatisticsScreen
 import fames.systems.bizmanager.application.dashboard.ui.viewmodel.DashboardViewModel
 import fames.systems.bizmanager.application.products.ui.ProductViewModel
 import fames.systems.bizmanager.application.products.ui.ProductsScreen
@@ -25,13 +24,14 @@ import fames.systems.bizmanager.application.settings.ui.SettingsScreen
 import fames.systems.bizmanager.application.settings.ui.SettingsViewModel
 import fames.systems.bizmanager.application.tpvpos.ui.TpvPosScreen
 import fames.systems.bizmanager.application.tpvpos.ui.TpvPosViewModel
+import fames.systems.bizmanager.navigation.screenRoutes.AppScreens
+import fames.systems.bizmanager.navigation.screenRoutes.BottomBarScreens
 
 @Composable
-fun AppNavigation() {
-    val navController = rememberNavController()
+fun AppNavigationGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = AppScreens.DashboardScreen.route,
+        startDestination = BottomBarScreens.DashboardScreen.route,
     ) {
         // AUTH
         composable(AppScreens.AuthScreen.route) {
@@ -39,7 +39,7 @@ fun AppNavigation() {
         }
         composable(AppScreens.LoginScreen.route) {
             val viewModel = hiltViewModel<LoginViewModel>()
-            LoginScreen(viewModel, navController) { navController.navigate(AppScreens.DashboardScreen.route) }
+            LoginScreen(viewModel, navController) { navController.navigate(BottomBarScreens.DashboardScreen.route) }
         }
         composable(AppScreens.RegisterScreen.route) {
             val viewModel = hiltViewModel<RegisterViewModel>()
@@ -47,16 +47,13 @@ fun AppNavigation() {
         }
 
         // DASHBOARD
-        composable(AppScreens.DashboardScreen.route) {
+        composable(BottomBarScreens.DashboardScreen.route) {
             val viewModel = hiltViewModel<DashboardViewModel>()
-            DashboardScreen(viewModel, navController)
-        }
-        composable(AppScreens.HistoryStatisticsScreen.route) {
-            HistoryStatisticsScreen(navController)
+            DashboardScreen(viewModel)
         }
 
         // CLIENTS
-        composable(AppScreens.ClientsScreen.route) {
+        composable(BottomBarScreens.ClientsScreen.route) {
             val viewModel = hiltViewModel<ClientsViewModel>()
             ClientsScreen(viewModel, navController)
         }
@@ -71,19 +68,19 @@ fun AppNavigation() {
         }
 
         // TPV-POS
-        composable(AppScreens.TpvPosScreen.route) {
+        composable(BottomBarScreens.TpvPosScreen.route) {
             val viewModel = hiltViewModel<TpvPosViewModel>()
             TpvPosScreen(viewModel, navController)
         }
 
         // PRODUCTS
-        composable(AppScreens.ProductsScreen.route) {
+        composable(BottomBarScreens.ProductsScreen.route) {
             val viewModel = hiltViewModel<ProductViewModel>()
             ProductsScreen(viewModel, navController)
         }
 
         // SETTINGS
-        composable(AppScreens.SettingsScreen.route) {
+        composable(BottomBarScreens.SettingsScreen.route) {
             val viewModel = hiltViewModel<SettingsViewModel>()
             SettingsScreen(viewModel, navController)
         }

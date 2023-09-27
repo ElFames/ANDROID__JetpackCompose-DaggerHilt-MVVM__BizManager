@@ -10,15 +10,13 @@ import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import fames.systems.bizmanager.navigation.AppScreens
+import fames.systems.bizmanager.navigation.screenRoutes.AppScreens
 import fames.systems.bizmanager.resources.authBackgroundColor
 import fames.systems.bizmanager.resources.buttonColor
-import fames.systems.bizmanager.resources.disabledButtonColor
 
 @Composable
 fun NavigateRegisterScreenButton(navController: NavHostController) {

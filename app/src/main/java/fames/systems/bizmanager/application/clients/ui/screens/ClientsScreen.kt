@@ -33,8 +33,7 @@ import fames.systems.bizmanager.application.clients.ui.components.clients.Client
 import fames.systems.bizmanager.application.clients.ui.components.clients.FilterClientBar
 import fames.systems.bizmanager.application.clients.ui.viewmodel.ClientsViewModel
 import fames.systems.bizmanager.application.dashboard.ui.screens.InsertTitle
-import fames.systems.bizmanager.navigation.AppScreens
-import fames.systems.bizmanager.navigation.SimpleNavMenu
+import fames.systems.bizmanager.navigation.screenRoutes.AppScreens
 
 @Composable
 fun ClientsScreen(viewModel: ClientsViewModel, navController: NavHostController) {
@@ -47,6 +46,7 @@ fun ClientsScreen(viewModel: ClientsViewModel, navController: NavHostController)
         modifier = Modifier
             .fillMaxSize()
             .background(color = Color.LightGray)
+            .padding(bottom = 70.dp)
     ) {
         InsertTitle("Lista de Clientes")
         HorizontalLine(color = Color.LightGray)
@@ -63,7 +63,6 @@ fun ClientsScreen(viewModel: ClientsViewModel, navController: NavHostController)
             }
             ListGridClients(clients, navController)
     }
-    SimpleNavMenu(navController = navController)
 }
 
 @Composable

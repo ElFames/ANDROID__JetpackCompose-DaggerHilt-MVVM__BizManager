@@ -50,17 +50,15 @@ fun ShowNewClientScreen(viewModel: NewClientViewModel, navController: NavHostCon
     val email by viewModel.email.observeAsState(initial = "")
     val phone by viewModel.phone.observeAsState(initial = "")
     val address by viewModel.address.observeAsState(initial = "")
+
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .background(color = Color.LightGray),
-        verticalArrangement = Arrangement.SpaceBetween,
+        verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        item {
-            CancelButton(navController)
-            NewClientTitle()
-        }
+        item { NewClientTitle() }
         item {
             ClientNameTextField(name) { viewModel.onInsertChange(it, email, phone, address) }
             ClientEmailTextField(email) { viewModel.onInsertChange(name, it, phone, address) }
@@ -71,6 +69,7 @@ fun ShowNewClientScreen(viewModel: NewClientViewModel, navController: NavHostCon
             SaveButton(insertEnable) { viewModel.onSaveClient(name, email, phone, address) }
         }
     }
+    CancelButton(navController)
 }
 
 

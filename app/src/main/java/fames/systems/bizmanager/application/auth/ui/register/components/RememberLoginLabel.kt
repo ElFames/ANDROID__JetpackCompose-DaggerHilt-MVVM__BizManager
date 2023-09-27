@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import fames.systems.bizmanager.navigation.AppScreens
+import fames.systems.bizmanager.navigation.screenRoutes.AppScreens
 import fames.systems.bizmanager.resources.buttonColor
 
 @Composable
