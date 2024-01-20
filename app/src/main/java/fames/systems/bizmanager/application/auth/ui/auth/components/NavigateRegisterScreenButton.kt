@@ -14,9 +14,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import fames.systems.bizmanager.navigation.screenRoutes.AppScreens
-import fames.systems.bizmanager.resources.authBackgroundColor
-import fames.systems.bizmanager.resources.buttonColor
+import fames.systems.bizmanager.infrastructure.navigation.screenRoutes.AppScreens
+import fames.systems.bizmanager.infrastructure.resources.authBackgroundColor
+import fames.systems.bizmanager.infrastructure.resources.buttonColor
 
 @Composable
 fun NavigateRegisterScreenButton(navController: NavHostController) {

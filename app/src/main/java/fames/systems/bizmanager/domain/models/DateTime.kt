@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.domain
+package fames.systems.bizmanager.domain.models
 
 import kotlinx.serialization.Serializable
 import java.util.Calendar

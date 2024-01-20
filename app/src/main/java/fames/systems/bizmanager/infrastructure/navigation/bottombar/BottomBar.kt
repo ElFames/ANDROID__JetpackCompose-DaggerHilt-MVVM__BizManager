@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.navigation.bottombar
+package fames.systems.bizmanager.infrastructure.navigation.bottombar
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.BottomAppBar
@@ -16,8 +16,8 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import fames.systems.bizmanager.navigation.screenRoutes.BottomBarScreens
-import fames.systems.bizmanager.resources.buttonColor
+import fames.systems.bizmanager.infrastructure.navigation.screenRoutes.BottomBarScreens
+import fames.systems.bizmanager.infrastructure.resources.buttonColor
 
 @Composable
 fun BottomBar(navController: NavHostController) {
@@ -72,8 +72,8 @@ fun RowScope.AddItem(
             selectedIconColor = Color.Black,
             selectedTextColor = buttonColor,
             indicatorColor = buttonColor,
-            unselectedIconColor = Color.Black,
-            unselectedTextColor = Color.Black
+            unselectedIconColor = Color.Gray,
+            unselectedTextColor = Color.Gray
         )
     )
 }

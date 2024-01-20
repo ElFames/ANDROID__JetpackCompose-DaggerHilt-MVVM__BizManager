@@ -21,8 +21,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import fames.systems.bizmanager.resources.authBackgroundColor
-import fames.systems.bizmanager.resources.buttonColor
+import fames.systems.bizmanager.infrastructure.resources.authBackgroundColor
+import fames.systems.bizmanager.infrastructure.resources.buttonColor
 
 
 @OptIn(ExperimentalMaterial3Api::class)

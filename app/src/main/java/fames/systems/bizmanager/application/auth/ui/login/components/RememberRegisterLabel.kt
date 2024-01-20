@@ -8,8 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import fames.systems.bizmanager.navigation.screenRoutes.AppScreens
-import fames.systems.bizmanager.resources.buttonColor
+import fames.systems.bizmanager.infrastructure.navigation.screenRoutes.AppScreens
+import fames.systems.bizmanager.infrastructure.resources.buttonColor
 
 @Composable
 fun RememberRegisterLabel(navController: NavHostController) {

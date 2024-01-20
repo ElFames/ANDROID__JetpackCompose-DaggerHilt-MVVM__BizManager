@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.navigation.screenRoutes
+package fames.systems.bizmanager.infrastructure.navigation.screenRoutes
 
 
 sealed class AppScreens(val route: String) {

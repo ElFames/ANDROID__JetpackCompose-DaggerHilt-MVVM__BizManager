@@ -27,7 +27,7 @@ import fames.systems.bizmanager.application.dashboard.ui.viewmodel.DashboardView
 import fames.systems.bizmanager.application.dashboard.ui.components.FilterDashboardBar
 import fames.systems.bizmanager.application.dashboard.ui.components.MyBarChart
 import fames.systems.bizmanager.application.dashboard.ui.components.ShowStatistics
-import fames.systems.bizmanager.resources.buttonColor
+import fames.systems.bizmanager.infrastructure.resources.buttonColor
 
 @Composable
 fun DashboardScreen(

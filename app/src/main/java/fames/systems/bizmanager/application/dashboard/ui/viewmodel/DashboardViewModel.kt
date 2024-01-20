@@ -7,9 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fames.systems.bizmanager.application.dashboard.domain.DashboardRepository
 import fames.systems.bizmanager.application.dashboard.domain.models.Filter
-import fames.systems.bizmanager.domain.LoadData
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,10 +15,10 @@ class DashboardViewModel @Inject constructor(
     private val repository: DashboardRepository
 ): ViewModel() {
     init {
-            getNumOfSales(Filter.DIA)
-            getExpenses(Filter.DIA)
-            getProfit(Filter.DIA)
-            getIncome(Filter.DIA)
+        getNumOfSales(Filter.DIA)
+        getExpenses(Filter.DIA)
+        getProfit(Filter.DIA)
+        getIncome(Filter.DIA)
     }
 
     private val _bestSellers = MutableLiveData<List<String>>()

@@ -21,7 +21,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import fames.systems.bizmanager.R
-import fames.systems.bizmanager.resources.authBackgroundColor
+import fames.systems.bizmanager.infrastructure.resources.authBackgroundColor
 
 @Composable
 fun ShowLoadingScreen() {

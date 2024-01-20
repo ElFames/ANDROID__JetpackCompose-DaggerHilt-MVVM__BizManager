@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.navigation.screenRoutes
+package fames.systems.bizmanager.infrastructure.navigation.screenRoutes
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Home

@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import fames.systems.bizmanager.resources.buttonColor
+import fames.systems.bizmanager.infrastructure.resources.buttonColor
 
 @Composable
 fun SaveButton(insertEnable: Boolean, onSaveClient: () -> Unit) {

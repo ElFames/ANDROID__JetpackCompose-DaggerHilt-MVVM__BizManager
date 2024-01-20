@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.sp
 import fames.systems.bizmanager.R
 import fames.systems.bizmanager.application.dashboard.domain.models.Filter
 import fames.systems.bizmanager.application.dashboard.ui.viewmodel.DashboardViewModel
-import fames.systems.bizmanager.resources.buttonColor
+import fames.systems.bizmanager.infrastructure.resources.buttonColor
 
 @Composable
 fun FilterDashboardBar(viewModel: DashboardViewModel, showCharts: Boolean, changeShowChartState: (Boolean) -> Unit) {

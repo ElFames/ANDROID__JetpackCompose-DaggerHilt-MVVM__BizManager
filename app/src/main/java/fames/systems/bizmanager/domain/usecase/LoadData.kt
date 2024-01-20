@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.domain
+package fames.systems.bizmanager.domain.usecase
 
 import fames.systems.bizmanager.application.clients.domain.ClientsRepository
 import fames.systems.bizmanager.application.dashboard.domain.DashboardRepository

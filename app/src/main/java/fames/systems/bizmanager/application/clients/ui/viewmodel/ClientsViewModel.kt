@@ -7,19 +7,17 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fames.systems.bizmanager.application.clients.domain.ClientsRepository
 import fames.systems.bizmanager.application.clients.domain.models.Client
-import fames.systems.bizmanager.domain.LoadData
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
 class ClientsViewModel @Inject constructor(
-    private val repository: ClientsRepository,
-    private val loadData: LoadData
+    private val repository: ClientsRepository
 ): ViewModel() {
-
     init {
-        viewModelScope.launch { loadData() }
+        viewModelScope.launch {
+            repository.loadClients()
+        }
     }
     private val _clientToSearch = MutableLiveData("")
     val clientToSearch: LiveData<String> = _clientToSearch

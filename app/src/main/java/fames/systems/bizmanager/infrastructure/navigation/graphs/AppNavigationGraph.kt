@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.navigation.graphs
+package fames.systems.bizmanager.infrastructure.navigation.graphs
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -24,14 +24,14 @@ import fames.systems.bizmanager.application.settings.ui.SettingsScreen
 import fames.systems.bizmanager.application.settings.ui.SettingsViewModel
 import fames.systems.bizmanager.application.tpvpos.ui.TpvPosScreen
 import fames.systems.bizmanager.application.tpvpos.ui.TpvPosViewModel
-import fames.systems.bizmanager.navigation.screenRoutes.AppScreens
-import fames.systems.bizmanager.navigation.screenRoutes.BottomBarScreens
+import fames.systems.bizmanager.infrastructure.navigation.screenRoutes.AppScreens
+import fames.systems.bizmanager.infrastructure.navigation.screenRoutes.BottomBarScreens
 
 @Composable
 fun AppNavigationGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = BottomBarScreens.DashboardScreen.route,
+        startDestination = AppScreens.AuthScreen.route,
     ) {
         // AUTH
         composable(AppScreens.AuthScreen.route) {

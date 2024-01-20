@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.navigation.bottombar
+package fames.systems.bizmanager.infrastructure.navigation.bottombar
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource

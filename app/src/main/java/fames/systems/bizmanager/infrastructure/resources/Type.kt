@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.resources
+package fames.systems.bizmanager.infrastructure.resources
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

@@ -15,21 +15,3 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 
-@Composable
-fun CancelButton(navController: NavHostController) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 16.dp, end = 16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.End
-    ) {
-        Icon(
-            Icons.Default.Close,
-            contentDescription = "cancel_button",
-            modifier = Modifier
-                .size(30.dp)
-                .clickable { navController.popBackStack() }
-        )
-    }
-}

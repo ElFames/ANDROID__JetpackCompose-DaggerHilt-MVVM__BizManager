@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.di
+package fames.systems.bizmanager.infrastructure.di
 
 import dagger.Module
 import dagger.Provides

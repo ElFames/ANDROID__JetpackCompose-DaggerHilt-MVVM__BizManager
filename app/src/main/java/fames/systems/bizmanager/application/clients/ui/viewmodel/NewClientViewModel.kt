@@ -23,6 +23,9 @@ class NewClientViewModel @Inject constructor(
     private val _isInsertError = MutableLiveData<Pair<Boolean, String>>()
     val isInsertError: LiveData<Pair<Boolean, String>> = _isInsertError
 
+    private val _insertSuccessful = MutableLiveData<Boolean>()
+    val insertSuccessful: LiveData<Boolean> = _insertSuccessful
+
     private val _name = MutableLiveData<String>()
     val name: LiveData<String> = _name
 
@@ -34,9 +37,6 @@ class NewClientViewModel @Inject constructor(
 
     private val _address = MutableLiveData<String>()
     val address: LiveData<String> = _address
-
-    private val _insertSuccessful = MutableLiveData<Boolean>()
-    val insertSuccessful: LiveData<Boolean> = _insertSuccessful
 
     fun onInsertChange(name: String, email: String, phone: String, address: String) {
         _name.value = name

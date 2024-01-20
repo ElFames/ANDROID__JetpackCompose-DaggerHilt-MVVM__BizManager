@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
-import fames.systems.bizmanager.application.clients.ui.components.newclient.CancelButton
 import fames.systems.bizmanager.application.clients.ui.components.newclient.textfields.ClientEmailTextField
 import fames.systems.bizmanager.application.clients.ui.components.newclient.textfields.ClientNameTextField
 import fames.systems.bizmanager.application.clients.ui.components.newclient.LoadingClientInsert
@@ -69,7 +68,7 @@ fun ShowNewClientScreen(viewModel: NewClientViewModel, navController: NavHostCon
             SaveButton(insertEnable) { viewModel.onSaveClient(name, email, phone, address) }
         }
     }
-    CancelButton(navController)
+    CancelButton(navController, Color.Black)
 }
 
 

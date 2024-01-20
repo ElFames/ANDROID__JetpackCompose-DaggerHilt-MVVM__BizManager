@@ -33,7 +33,7 @@ import fames.systems.bizmanager.application.clients.ui.components.clients.Client
 import fames.systems.bizmanager.application.clients.ui.components.clients.FilterClientBar
 import fames.systems.bizmanager.application.clients.ui.viewmodel.ClientsViewModel
 import fames.systems.bizmanager.application.dashboard.ui.screens.InsertTitle
-import fames.systems.bizmanager.navigation.screenRoutes.AppScreens
+import fames.systems.bizmanager.infrastructure.navigation.screenRoutes.AppScreens
 
 @Composable
 fun ClientsScreen(viewModel: ClientsViewModel, navController: NavHostController) {
@@ -88,7 +88,7 @@ fun ClientInfoContainer(containerColor: Color, client: Client, navController: Na
             containerColor = containerColor,
             contentColor = Color.Black
         ),
-        border = BorderStroke(width = 1.dp, color = Color.DarkGray),
+        border = BorderStroke(width = 2.dp, color = Color.Gray),
         shape = MaterialTheme.shapes.small
     ) {
         Column(

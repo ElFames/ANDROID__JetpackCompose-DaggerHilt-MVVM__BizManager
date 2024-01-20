@@ -14,8 +14,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
-import fames.systems.bizmanager.resources.buttonColor
-import fames.systems.bizmanager.resources.disabledButtonColor
+import fames.systems.bizmanager.infrastructure.resources.buttonColor
+import fames.systems.bizmanager.infrastructure.resources.disabledButtonColor
 
 @Composable
 fun RegisterButton(registerEnable: Boolean, onRegisterSelected: () -> Unit) {

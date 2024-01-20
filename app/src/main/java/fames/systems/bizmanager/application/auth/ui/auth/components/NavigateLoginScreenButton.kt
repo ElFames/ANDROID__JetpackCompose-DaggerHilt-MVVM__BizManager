@@ -14,9 +14,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import fames.systems.bizmanager.navigation.screenRoutes.AppScreens
-import fames.systems.bizmanager.resources.buttonColor
-import fames.systems.bizmanager.resources.disabledButtonColor
+import fames.systems.bizmanager.infrastructure.navigation.screenRoutes.AppScreens
+import fames.systems.bizmanager.infrastructure.resources.buttonColor
+import fames.systems.bizmanager.infrastructure.resources.disabledButtonColor
 
 @Composable
 fun NavigateLoginScreenButton(navController: NavHostController) {

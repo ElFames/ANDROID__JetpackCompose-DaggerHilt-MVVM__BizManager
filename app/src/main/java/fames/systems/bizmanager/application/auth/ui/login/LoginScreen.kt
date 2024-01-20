@@ -21,8 +21,8 @@ import fames.systems.bizmanager.application.auth.ui.shared.HeaderImage
 import fames.systems.bizmanager.application.auth.ui.shared.HorizontalLine
 import fames.systems.bizmanager.application.auth.ui.login.components.PasswordTextField
 import fames.systems.bizmanager.application.auth.ui.shared.ShowLoadingScreen
-import fames.systems.bizmanager.resources.authBackgroundColor
-import fames.systems.bizmanager.resources.buttonColor
+import fames.systems.bizmanager.infrastructure.resources.authBackgroundColor
+import fames.systems.bizmanager.infrastructure.resources.buttonColor
 
 @Composable
 fun LoginScreen(viewModel: LoginViewModel, navController: NavHostController, initApp: () -> Unit) {

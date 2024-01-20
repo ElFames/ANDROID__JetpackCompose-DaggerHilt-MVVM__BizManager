@@ -20,4 +20,6 @@ class ClientDetailViewModel @Inject constructor(
         val client = repository.getClient(clientId)
         _client.value = client
     }
+
+    fun getFormat() = repository.format
 }

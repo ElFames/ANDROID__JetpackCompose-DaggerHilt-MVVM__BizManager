@@ -20,8 +20,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fames.systems.bizmanager.R
-import fames.systems.bizmanager.navigation.screenRoutes.AppScreens
-import fames.systems.bizmanager.resources.buttonColor
+import fames.systems.bizmanager.infrastructure.navigation.screenRoutes.AppScreens
+import fames.systems.bizmanager.infrastructure.resources.buttonColor
 
 @Composable
 fun FilterClientBar(

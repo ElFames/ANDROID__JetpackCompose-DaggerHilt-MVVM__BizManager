@@ -20,15 +20,15 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import fames.systems.bizmanager.navigation.bottombar.BottomBar
-import fames.systems.bizmanager.navigation.graphs.AppNavigationGraph
-import fames.systems.bizmanager.navigation.screenRoutes.BottomBarScreens
-import fames.systems.bizmanager.resources.buttonColor
+import fames.systems.bizmanager.infrastructure.navigation.bottombar.BottomBar
+import fames.systems.bizmanager.infrastructure.navigation.graphs.AppNavigationGraph
+import fames.systems.bizmanager.infrastructure.navigation.screenRoutes.BottomBarScreens
+import fames.systems.bizmanager.infrastructure.resources.buttonColor
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppScreen() {
+fun BizManagerApp() {
     val navController: NavHostController = rememberNavController()
     Scaffold(
         bottomBar = { BottomBar(navController) }

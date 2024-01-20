@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fames.systems.bizmanager.application.auth.ui.login.components.EmailTextField
@@ -26,8 +27,9 @@ import fames.systems.bizmanager.application.auth.ui.register.components.Remember
 import fames.systems.bizmanager.application.auth.ui.shared.HeaderImage
 import fames.systems.bizmanager.application.auth.ui.shared.HorizontalLine
 import fames.systems.bizmanager.application.auth.ui.register.components.UsernameTextField
-import fames.systems.bizmanager.resources.authBackgroundColor
-import fames.systems.bizmanager.resources.buttonColor
+import fames.systems.bizmanager.infrastructure.resources.authBackgroundColor
+import fames.systems.bizmanager.infrastructure.resources.buttonColor
+
 
 @Composable
 fun RegisterScreen(viewModel: RegisterViewModel, navController: NavHostController) {

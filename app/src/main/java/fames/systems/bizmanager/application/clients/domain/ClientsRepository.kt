@@ -3,9 +3,9 @@ package fames.systems.bizmanager.application.clients.domain
 import fames.systems.bizmanager.application.clients.domain.models.Client
 import fames.systems.bizmanager.application.clients.infrastructure.ClientsService
 import fames.systems.bizmanager.application.products.domain.models.Product
-import fames.systems.bizmanager.domain.Purchase
+import fames.systems.bizmanager.domain.models.Purchase
 import fames.systems.bizmanager.application.products.domain.models.SubProduct
-import fames.systems.bizmanager.domain.getCurrentDateTime
+import fames.systems.bizmanager.domain.models.getCurrentDateTime
 import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -17,6 +17,7 @@ class ClientsRepository @Inject constructor(
     private var clients = mutableListOf<Client>()
     private var filteredClients = mutableListOf<Client>()
     private var originalClients = mutableListOf<Client>()
+    val format: (Int) -> String = { "%02d".format(it) }
 
     fun searchClient(clientToSearch: String): MutableList<Client> {
         filteredClients.clear()
@@ -52,8 +53,10 @@ class ClientsRepository @Inject constructor(
         val clientRanking = mutableListOf<Pair<String, Double>>()
         clients.forEach { client ->
             val totalProfit = client.purchases.sumOf { purchase ->
-                purchase.product.sellPrice - purchase.product.expenses.sumOf { subProduct ->
-                    subProduct.costPrice
+                purchase.products.sumOf { product ->
+                    product.second.sellPrice - product.second.expenses.sumOf { subProduct ->
+                        subProduct.costPrice
+                    }
                 }
             }
             clientRanking.add(Pair(client.name, totalProfit))
@@ -101,21 +104,28 @@ val clientsTest = MutableList(14) { clientId ->
         purchases = MutableList(20) { purchaseId ->
             Purchase(
                 id = UUID.randomUUID().toString(),
-                product = Product(
-                    id = UUID.randomUUID().toString(),
-                    name = "Producto $purchaseId",
-                    sellPrice = 10.0 + clientId * 5,
-                    expenses = MutableList(5) {
-                        SubProduct(
+                products = MutableList(3) { productId ->
+                    Pair(
+                        productId,
+                        Product(
                             id = UUID.randomUUID().toString(),
-                            name = "SubProducto $clientId",
-                            costPrice = 5.0,
-                            quantity = clientId + 1,
-                            quantityCurrency = if (purchaseId % 2 == 0) "g" else "ml"
+                            name = "Producto $purchaseId",
+                            sellPrice = 10.0 + clientId * 5,
+                            expenses = MutableList(5) {
+                                SubProduct(
+                                    id = UUID.randomUUID().toString(),
+                                    name = "SubProducto $clientId",
+                                    costPrice = 5.0,
+                                    quantity = clientId + 1,
+                                    quantityCurrency = if (purchaseId % 2 == 0) "g" else "ml"
+                                )
+                            }
                         )
-                    }
-                ),
-                dateTime = getCurrentDateTime()
+                    )
+                },
+                dateTime = getCurrentDateTime(),
+                totalPrice = 35.50,
+                null
             )
         }
     )
