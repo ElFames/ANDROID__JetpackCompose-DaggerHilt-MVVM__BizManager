@@ -1,7 +1,7 @@
 package fames.systems.bizmanager.application.products.domain
 
 import fames.systems.bizmanager.application.products.domain.models.Product
-import fames.systems.bizmanager.application.products.infrastructure.ProductsService
+import fames.systems.bizmanager.application.products.data.ProductsService
 import javax.inject.Inject
 import javax.inject.Singleton
 

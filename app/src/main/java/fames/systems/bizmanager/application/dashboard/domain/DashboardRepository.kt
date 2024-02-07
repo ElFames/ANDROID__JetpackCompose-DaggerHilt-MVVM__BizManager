@@ -1,7 +1,7 @@
 package fames.systems.bizmanager.application.dashboard.domain
 
 import fames.systems.bizmanager.application.dashboard.domain.models.Filter
-import fames.systems.bizmanager.application.dashboard.infrastructure.DashboardService
+import fames.systems.bizmanager.application.dashboard.data.DashboardService
 import javax.inject.Inject
 import javax.inject.Singleton
 

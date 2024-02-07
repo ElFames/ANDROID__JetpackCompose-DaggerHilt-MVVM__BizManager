@@ -8,7 +8,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.ShapeDefaults
@@ -37,19 +41,14 @@ fun UsernameTextField(name: String, onRegisterChange: (String) -> Unit) {
     OutlinedTextField(
         value = name,
         onValueChange = { onRegisterChange(it) },
-        placeholder = { Text(text = "Introduce tu nombre...", color = Color.White) },
+        placeholder = { Text(text = "Introduce tu nombre...", color = Color.Gray) },
         modifier = Modifier
             .padding(horizontal = 25.dp, vertical = 7.dp)
             .border(border = BorderStroke(1.dp, buttonColor), shape = ShapeDefaults.Small)
             .fillMaxWidth()
             .height(52.dp),
         leadingIcon = {
-            Image(
-                painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                contentDescription = "Email Icon",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.size(48.dp)
-            )
+            Icon(imageVector = Icons.Default.Person, contentDescription = "user_icon", tint = Color.White)
         },
         singleLine = true,
         keyboardOptions = KeyboardOptions(

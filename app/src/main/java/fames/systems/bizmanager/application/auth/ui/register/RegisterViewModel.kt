@@ -1,6 +1,5 @@
 package fames.systems.bizmanager.application.auth.ui.register
 
-import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,6 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fames.systems.bizmanager.application.auth.domain.AuthRepository
+import fames.systems.bizmanager.domain.models.UiState
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,6 +17,9 @@ import javax.inject.Inject
 class RegisterViewModel @Inject constructor(
     private val repository: AuthRepository
 ): ViewModel() {
+    private val _uiState = MutableStateFlow(UiState.IDLE)
+    val uiState: StateFlow<UiState> = _uiState
+
     private val _name = MutableLiveData<String>()
     val name: LiveData<String> = _name
 
@@ -29,12 +34,6 @@ class RegisterViewModel @Inject constructor(
 
     private val _registerEnable = MutableLiveData<Boolean>()
     val registerEnable: LiveData<Boolean> = _registerEnable
-
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
-
-    private val _isRegisterError = MutableLiveData<Boolean>()
-    val isRegisterError: LiveData<Boolean> = _isRegisterError
 
     fun onRegisterChange(name: String, email: String, password: String, confirmPassword: String) {
         _name.value = name
@@ -53,15 +52,13 @@ class RegisterViewModel @Inject constructor(
 
     fun onRegisterSelected(name: String, email: String, password: String) {
         viewModelScope.launch {
-            Log.v("register","$name :: $email :: $password")
-            _isLoading.value = true
+            _uiState.value = UiState.LOADING
             val response = repository.register(name, email, password)
-            _isRegisterError.value = !response
-            _isLoading.value = false
+            _uiState.value = if (response) UiState.SUCCESS else UiState.ERROR
         }
     }
 
-    fun hideRegisterError() {
-        _isRegisterError.value = false
+    fun finishRegister() {
+        _uiState.value = UiState.IDLE
     }
 }

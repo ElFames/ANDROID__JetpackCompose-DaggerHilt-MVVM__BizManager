@@ -1,12 +1,9 @@
 package fames.systems.bizmanager.application.tpvpos.ui
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -22,12 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
-import fames.systems.bizmanager.application.clients.ui.components.ClientDataContainer
-import fames.systems.bizmanager.application.clients.ui.components.clients.LastPurchases
-import fames.systems.bizmanager.application.clients.ui.screens.ClientInfoContainer
-import fames.systems.bizmanager.application.clients.ui.screens.InsertClientDetailTitle
 import fames.systems.bizmanager.application.dashboard.ui.screens.InsertTitle
 
 @Composable

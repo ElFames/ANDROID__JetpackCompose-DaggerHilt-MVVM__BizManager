@@ -1,7 +1,7 @@
 package fames.systems.bizmanager.application.clients.domain
 
 import fames.systems.bizmanager.application.clients.domain.models.Client
-import fames.systems.bizmanager.application.clients.infrastructure.ClientsService
+import fames.systems.bizmanager.application.clients.data.ClientsService
 import fames.systems.bizmanager.application.products.domain.models.Product
 import fames.systems.bizmanager.domain.models.Purchase
 import fames.systems.bizmanager.application.products.domain.models.SubProduct
@@ -17,7 +17,6 @@ class ClientsRepository @Inject constructor(
     private var clients = mutableListOf<Client>()
     private var filteredClients = mutableListOf<Client>()
     private var originalClients = mutableListOf<Client>()
-    val format: (Int) -> String = { "%02d".format(it) }
 
     fun searchClient(clientToSearch: String): MutableList<Client> {
         filteredClients.clear()
@@ -40,9 +39,13 @@ class ClientsRepository @Inject constructor(
     }
 
     fun getClients() = clients
+
     suspend fun loadClients(): MutableList<Client> {
         return clients.ifEmpty {
-            //clients = clientsService.loadClients()
+            /**
+             clients = clientsService.loadClients()
+             **/
+
             clients = clientsTest
             originalClients.addAll(clients)
             clients
@@ -65,7 +68,9 @@ class ClientsRepository @Inject constructor(
     }
 
     suspend fun newClient(name: String, email: String, phone: String, address: String): Pair<Boolean, String> {
-        /*val reponseMessage = clientsService.insertClient(name, email, phone, address)
+        /**
+        val reponseMessage = clientsService.insertClient(name, email, phone, address)
+
         return if (reponseMessage == "No hay conexión con el servidor" || reponseMessage == "El telefono ya está en uso") {
             Pair(false, reponseMessage)
         } else {
@@ -80,7 +85,8 @@ class ClientsRepository @Inject constructor(
             clients.add(clientAdded)
             originalClients.add(clientAdded)
             Pair(true, reponseMessage)
-        }*/
+        }**/
+
         val id = (50..9999).random()
         val testClient = Client((id..9999999).random(), name, email, phone, address, mutableListOf())
         clients.add(testClient)
@@ -92,6 +98,7 @@ class ClientsRepository @Inject constructor(
         val client = clients.find { it.id == clientId.toInt() }
         return client!!
     }
+
 }
 
 val clientsTest = MutableList(14) { clientId ->

@@ -9,7 +9,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.ShapeDefaults
@@ -35,7 +38,7 @@ import fames.systems.bizmanager.infrastructure.resources.authBackgroundColor
 import fames.systems.bizmanager.infrastructure.resources.buttonColor
 
 
-@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConfirmPasswordTextField(confirmPassword: String, onLoginChange: (String) -> Unit) {
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -47,14 +50,9 @@ fun ConfirmPasswordTextField(confirmPassword: String, onLoginChange: (String) ->
             .border(border = BorderStroke(1.dp, buttonColor), shape = ShapeDefaults.Small)
             .fillMaxWidth()
             .height(52.dp),
-        placeholder = { Text("Confirma la contraseña", color = Color.White) },
+        placeholder = { Text("Confirma la contraseña", color = Color.Gray) },
         leadingIcon = {
-            Image(
-                painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                contentDescription = "Password Icon",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.size(48.dp)
-            )
+            Icon(imageVector = Icons.Default.Lock, contentDescription = "password_icon", tint = Color.White)
         },
         singleLine = true,
         keyboardActions = KeyboardActions(

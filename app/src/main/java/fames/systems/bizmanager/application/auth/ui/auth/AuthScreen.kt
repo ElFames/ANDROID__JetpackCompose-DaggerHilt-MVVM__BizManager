@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import fames.systems.bizmanager.application.auth.ui.auth.components.NavigateLoginScreenButton
 import fames.systems.bizmanager.application.auth.ui.auth.components.NavigateRegisterScreenButton
@@ -16,11 +15,6 @@ import fames.systems.bizmanager.infrastructure.resources.authBackgroundColor
 
 @Composable
 fun AuthScreen(navController: NavHostController) {
-    CreateAuthView(navController)
-}
-
-@Composable
-fun CreateAuthView(navController: NavHostController) {
     LazyColumn(
         modifier = Modifier.background(color = authBackgroundColor).fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -33,6 +27,5 @@ fun CreateAuthView(navController: NavHostController) {
             NavigateLoginScreenButton(navController)
             NavigateRegisterScreenButton(navController)
         }
-
     }
 }

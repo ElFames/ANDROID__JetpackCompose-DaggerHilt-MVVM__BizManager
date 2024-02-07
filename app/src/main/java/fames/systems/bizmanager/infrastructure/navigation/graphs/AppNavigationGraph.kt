@@ -10,12 +10,12 @@ import fames.systems.bizmanager.application.auth.ui.login.LoginScreen
 import fames.systems.bizmanager.application.auth.ui.login.LoginViewModel
 import fames.systems.bizmanager.application.auth.ui.register.RegisterScreen
 import fames.systems.bizmanager.application.auth.ui.register.RegisterViewModel
-import fames.systems.bizmanager.application.clients.ui.screens.ClientDetailScreen
-import fames.systems.bizmanager.application.clients.ui.screens.ClientsScreen
-import fames.systems.bizmanager.application.clients.ui.screens.NewClientScreen
-import fames.systems.bizmanager.application.clients.ui.viewmodel.ClientDetailViewModel
-import fames.systems.bizmanager.application.clients.ui.viewmodel.ClientsViewModel
-import fames.systems.bizmanager.application.clients.ui.viewmodel.NewClientViewModel
+import fames.systems.bizmanager.application.clients.ui.clientdetail.ClientDetailScreen
+import fames.systems.bizmanager.application.clients.ui.myclients.MyClientsScreen
+import fames.systems.bizmanager.application.clients.ui.newclient.NewClientScreen
+import fames.systems.bizmanager.application.clients.ui.clientdetail.ClientDetailViewModel
+import fames.systems.bizmanager.application.clients.ui.myclients.MyClientsViewModel
+import fames.systems.bizmanager.application.clients.ui.newclient.NewClientViewModel
 import fames.systems.bizmanager.application.dashboard.ui.screens.DashboardScreen
 import fames.systems.bizmanager.application.dashboard.ui.viewmodel.DashboardViewModel
 import fames.systems.bizmanager.application.products.ui.ProductViewModel
@@ -54,8 +54,8 @@ fun AppNavigationGraph(navController: NavHostController) {
 
         // CLIENTS
         composable(BottomBarScreens.ClientsScreen.route) {
-            val viewModel = hiltViewModel<ClientsViewModel>()
-            ClientsScreen(viewModel, navController)
+            val viewModel = hiltViewModel<MyClientsViewModel>()
+            MyClientsScreen(viewModel, navController)
         }
         composable(AppScreens.NewClientScreen.route) {
             val viewModel = hiltViewModel<NewClientViewModel>()

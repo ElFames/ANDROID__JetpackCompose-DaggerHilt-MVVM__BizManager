@@ -37,11 +37,11 @@ fun DashboardCard(title: String, content: List<String>, backgroundColor: Color) 
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .border(2.dp, color = Color.Gray, shape = MaterialTheme.shapes.small),
+            .border(1.dp, color = Color.Gray, shape = MaterialTheme.shapes.small),
         colors = CardDefaults.cardColors(
             containerColor = backgroundColor
         ),
-        elevation = CardDefaults.cardElevation(4.dp)
+        elevation = CardDefaults.cardElevation(2.dp)
     ) {
         Column(
             modifier = Modifier.padding(16.dp),

@@ -1,6 +1,6 @@
 package fames.systems.bizmanager.application.auth.domain
 
-import fames.systems.bizmanager.application.auth.infrastructure.AuthService
+import fames.systems.bizmanager.application.auth.data.AuthService
 import javax.inject.Inject
 import javax.inject.Singleton
 

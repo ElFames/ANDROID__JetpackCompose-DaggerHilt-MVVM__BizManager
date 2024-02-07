@@ -21,7 +21,7 @@ fun ShowStatistics(viewModel: DashboardViewModel) {
     val numSales: List<String> by viewModel.numOfSales.observeAsState(initial = listOf())
 
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(150.dp),
+        columns = GridCells.Adaptive(170.dp),
         modifier = Modifier
             .padding(16.dp)
     ) {

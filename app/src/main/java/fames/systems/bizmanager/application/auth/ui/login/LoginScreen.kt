@@ -7,12 +7,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import fames.systems.bizmanager.application.auth.ui.login.components.ShowLoginErrorDialog
 import fames.systems.bizmanager.application.auth.ui.login.components.ForgotPasswordButton
 import fames.systems.bizmanager.application.auth.ui.login.components.LoginButton
 import fames.systems.bizmanager.application.auth.ui.login.components.RememberRegisterLabel
@@ -20,34 +20,31 @@ import fames.systems.bizmanager.application.auth.ui.login.components.EmailTextFi
 import fames.systems.bizmanager.application.auth.ui.shared.HeaderImage
 import fames.systems.bizmanager.application.auth.ui.shared.HorizontalLine
 import fames.systems.bizmanager.application.auth.ui.login.components.PasswordTextField
+import fames.systems.bizmanager.application.auth.ui.register.components.AlertDialogError
 import fames.systems.bizmanager.application.auth.ui.shared.ShowLoadingScreen
+import fames.systems.bizmanager.domain.models.UiState
 import fames.systems.bizmanager.infrastructure.resources.authBackgroundColor
 import fames.systems.bizmanager.infrastructure.resources.buttonColor
 
 @Composable
 fun LoginScreen(viewModel: LoginViewModel, navController: NavHostController, initApp: () -> Unit) {
-    val isLoading: Boolean by viewModel.isLoading.observeAsState(initial = false)
-    val loginError: Boolean by viewModel.isLoginError.observeAsState(initial = false)
-    val isValidUser: Boolean by viewModel.isValidate.observeAsState(initial = false)
+    val uiState: UiState by viewModel.uiState.collectAsState()
 
-    if (isLoading) ShowLoadingScreen()
-    else {
-        when {
-            isValidUser -> {
-                initApp()
-            }
-            loginError -> {
-                ShowLoginErrorDialog(
-                    onConfirmation = { viewModel.hideLoginError() },
-                    icon = Icons.Default.Warning
-                )
-            }
-            else -> {
-                ShowLoginScreen(
-                    viewModel = viewModel,
-                    navController = navController
-                )
-            }
+    when (uiState) {
+        UiState.IDLE -> ShowLoginScreen(viewModel, navController)
+        UiState.LOADING -> ShowLoadingScreen()
+        UiState.ERROR -> {
+            AlertDialogError(
+                icon = Icons.Default.Warning,
+                title = "Error de autenticación",
+                body = "Las credenciales no són correctas",
+                onConfirmation = { viewModel.finishLogin() },
+            )
+        }
+
+        UiState.SUCCESS -> {
+            viewModel.finishLogin()
+            initApp()
         }
     }
 }
