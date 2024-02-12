@@ -15,6 +15,7 @@ class ClientsRepository @Inject constructor(
     private val clientsService: ClientsService
 ) {
     private var clients = mutableListOf<Client>()
+    private var lastClientViewed: Client? = null
     private var filteredClients = mutableListOf<Client>()
     private var originalClients = mutableListOf<Client>()
 
@@ -95,8 +96,16 @@ class ClientsRepository @Inject constructor(
     }
 
     fun getClient(clientId: String): Client {
-        val client = clients.find { it.id == clientId.toInt() }
+        val client = clients.find { it.id.toString() == clientId }
         return client!!
+    }
+
+    fun getLastClientView(): Client? {
+        return lastClientViewed
+    }
+
+    fun setLastClientView(client: Client?) {
+        lastClientViewed = client
     }
 
 }

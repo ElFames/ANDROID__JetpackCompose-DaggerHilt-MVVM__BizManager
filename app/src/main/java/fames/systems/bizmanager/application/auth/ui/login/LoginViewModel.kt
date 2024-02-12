@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fames.systems.bizmanager.application.auth.domain.AuthRepository
 import fames.systems.bizmanager.domain.models.UiState
+import fames.systems.bizmanager.domain.usecase.LoadData
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,9 +17,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val repository: AuthRepository
+    private val repository: AuthRepository,
+    private val loadData: LoadData
 ): ViewModel() {
-    private val _uiState = MutableStateFlow(UiState.IDLE)
+    private val _uiState = MutableStateFlow(UiState.SUCCESS) // for direct login without UI interaction (testing)
     val uiState: StateFlow<UiState> = _uiState
 
     private val _email = MutableLiveData<String>()
@@ -57,6 +59,11 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    fun loadInitialData() {
+        viewModelScope.launch {
+            loadData()
+        }
+    }
     fun finishLogin() {
         _uiState.value = UiState.IDLE
     }

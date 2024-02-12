@@ -11,7 +11,10 @@ import fames.systems.bizmanager.application.products.domain.ProductsRepository
 import fames.systems.bizmanager.application.products.domain.models.Product
 import fames.systems.bizmanager.application.tpvpos.domain.TpvPosRepository
 import fames.systems.bizmanager.domain.models.DateTime
+import fames.systems.bizmanager.domain.models.UiState
 import fames.systems.bizmanager.domain.models.getCurrentDateTime
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,11 +24,8 @@ class TpvPosViewModel @Inject constructor(
     private val clientsRepository: ClientsRepository,
     private val tpvPosRepository: TpvPosRepository
 ) : ViewModel() {
-    init {
-        viewModelScope.launch {
-            productsRepository.loadProducts()
-        }
-    }
+    private val _uiState = MutableStateFlow(UiState.IDLE)
+    val uiState: StateFlow<UiState> = _uiState
 
     private val _productsSelected = MutableLiveData<MutableList<Pair<Int, Product>>>()
     val productsSelected: LiveData<MutableList<Pair<Int, Product>>> = _productsSelected
@@ -39,20 +39,14 @@ class TpvPosViewModel @Inject constructor(
     private val _allProducts = MutableLiveData(productsRepository.getProducts())
     val allProducts: LiveData<MutableList<Product>> = _allProducts
 
-    private val _clientSelected = MutableLiveData<Client>()
+    private val _clientSelected = MutableLiveData<Client>(clientsRepository.getLastClientView())
     val clientSelected: LiveData<Client> = _clientSelected
 
     private val _allClients = MutableLiveData(clientsRepository.getClients())
     val allClients: LiveData<MutableList<Client>> = _allClients
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
-
-    private val _isSellError = MutableLiveData<Pair<Boolean, String>>()
-    val isSellError: LiveData<Pair<Boolean, String>> = _isSellError
-
-    private val _isSellSuccessful = MutableLiveData<Boolean>()
-    val isSellSuccessful: LiveData<Boolean> = _isSellSuccessful
+    private val _isSellEnable = MutableLiveData(true)
+    val isSellEnable: LiveData<Boolean> = _isSellEnable
 
     fun selectClientById(id: String) {
         _clientSelected.value = clientsRepository.getClient(id)
@@ -60,19 +54,18 @@ class TpvPosViewModel @Inject constructor(
 
     fun onFinishPurchase() {
         if (_productsSelected.value.isNullOrEmpty())
-            _isSellError.value = Pair(true, "Escoge almenos un producto")
+            _isSellEnable.value = false // dialog "Escoge almenos un producto"
         else {
             viewModelScope.launch {
-                _isLoading.value = true
+                _uiState.value = UiState.LOADING
                 val response = tpvPosRepository.onFinishPurchase(
                     _productsSelected.value!!,
                     _dateTime.value!!,
                     _totalPrice.value!!,
                     _clientSelected.value?.id.toString()
                 )
-                _isSellError.value = Pair(!response, "No hay conexión con el servidor")
-                _isSellSuccessful.value = response
-                _isLoading.value = false
+                _uiState.value =
+                    if (response) UiState.SUCCESS else UiState.ERROR
             }
         }
     }
@@ -88,10 +81,13 @@ class TpvPosViewModel @Inject constructor(
                     _productsSelected.value?.removeAt(i)
                     _productsSelected.value?.add(i, Pair(unds + 1, product))
                     return@forEachIndexed
+                } else {
+                    _productsSelected.value?.add(Pair(1, product))
+                    return@forEachIndexed
                 }
             }
-            updateTotalPrice()
         }
+        updateTotalPrice()
     }
 
     fun unselectProduct(product: Product) {
@@ -113,6 +109,23 @@ class TpvPosViewModel @Inject constructor(
         val totalPrice = _totalPrice.value!!
         val newPrice = totalPrice - ((totalPrice / 100) * discount)
         _totalPrice.value = newPrice
+    }
+
+    fun hideError() {
+        _uiState.value = UiState.IDLE
+    }
+
+    fun clearClientSelected() {
+        clientsRepository.setLastClientView(null)
+    }
+
+    fun checkProductIsSelected(product: Product): Boolean {
+        _productsSelected.value?.forEach { lineOfProduct ->
+            if (lineOfProduct.second == product) {
+                return true
+            }
+        }
+        return false
     }
 
 }

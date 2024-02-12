@@ -13,7 +13,7 @@ class LoadData @Inject constructor(
     suspend operator fun invoke() {
         clientsRepository.loadClients()
         dashboardRepository.loadStatistics()
-        // productsRepository.load
+        productsRepository.loadProducts()
 
     }
 }

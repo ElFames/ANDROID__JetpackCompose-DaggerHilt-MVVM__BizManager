@@ -43,7 +43,7 @@ fun LoginScreen(viewModel: LoginViewModel, navController: NavHostController, ini
         }
 
         UiState.SUCCESS -> {
-            viewModel.finishLogin()
+            viewModel.loadInitialData()
             initApp()
         }
     }
