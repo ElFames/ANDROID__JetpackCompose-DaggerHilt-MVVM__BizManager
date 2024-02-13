@@ -9,7 +9,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import fames.systems.bizmanager.application.dashboard.ui.viewmodel.DashboardViewModel
+import fames.systems.bizmanager.application.dashboard.ui.DashboardViewModel
 
 @Composable
 fun ShowStatistics(viewModel: DashboardViewModel) {

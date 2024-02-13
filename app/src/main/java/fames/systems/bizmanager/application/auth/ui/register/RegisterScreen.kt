@@ -22,10 +22,10 @@ import fames.systems.bizmanager.application.auth.ui.register.components.BottomIn
 import fames.systems.bizmanager.application.auth.ui.register.components.ConfirmPasswordTextField
 import fames.systems.bizmanager.application.auth.ui.register.components.RegisterButton
 import fames.systems.bizmanager.application.auth.ui.register.components.RememberLoginLabel
-import fames.systems.bizmanager.application.auth.ui.shared.HeaderImage
-import fames.systems.bizmanager.application.auth.ui.shared.HorizontalLine
+import fames.systems.bizmanager.infrastructure.utils.HeaderImage
+import fames.systems.bizmanager.infrastructure.utils.HorizontalLine
 import fames.systems.bizmanager.application.auth.ui.register.components.UsernameTextField
-import fames.systems.bizmanager.application.auth.ui.shared.ShowLoadingScreen
+import fames.systems.bizmanager.infrastructure.utils.ShowLoadingScreen
 import fames.systems.bizmanager.domain.models.UiState
 import fames.systems.bizmanager.infrastructure.resources.authBackgroundColor
 import fames.systems.bizmanager.infrastructure.resources.buttonColor

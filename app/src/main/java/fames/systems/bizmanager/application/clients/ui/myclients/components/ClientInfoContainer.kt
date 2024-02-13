@@ -19,7 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fames.systems.bizmanager.application.clients.domain.models.Client
-import fames.systems.bizmanager.infrastructure.navigation.screenRoutes.AppScreens
+import fames.systems.bizmanager.infrastructure.navigation.routes.AppScreens
 
 @Composable
 fun ClientInfoContainer(containerColor: Color, client: Client, navController: NavHostController) {

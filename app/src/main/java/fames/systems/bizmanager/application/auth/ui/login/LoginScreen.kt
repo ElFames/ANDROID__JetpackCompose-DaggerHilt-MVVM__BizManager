@@ -17,11 +17,11 @@ import fames.systems.bizmanager.application.auth.ui.login.components.ForgotPassw
 import fames.systems.bizmanager.application.auth.ui.login.components.LoginButton
 import fames.systems.bizmanager.application.auth.ui.login.components.RememberRegisterLabel
 import fames.systems.bizmanager.application.auth.ui.login.components.EmailTextField
-import fames.systems.bizmanager.application.auth.ui.shared.HeaderImage
-import fames.systems.bizmanager.application.auth.ui.shared.HorizontalLine
+import fames.systems.bizmanager.infrastructure.utils.HeaderImage
+import fames.systems.bizmanager.infrastructure.utils.HorizontalLine
 import fames.systems.bizmanager.application.auth.ui.login.components.PasswordTextField
 import fames.systems.bizmanager.application.auth.ui.register.components.AlertDialogError
-import fames.systems.bizmanager.application.auth.ui.shared.ShowLoadingScreen
+import fames.systems.bizmanager.infrastructure.utils.ShowLoadingScreen
 import fames.systems.bizmanager.domain.models.UiState
 import fames.systems.bizmanager.infrastructure.resources.authBackgroundColor
 import fames.systems.bizmanager.infrastructure.resources.buttonColor

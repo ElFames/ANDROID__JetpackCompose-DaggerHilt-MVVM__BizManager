@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.application.dashboard.ui.viewmodel
+package fames.systems.bizmanager.application.dashboard.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

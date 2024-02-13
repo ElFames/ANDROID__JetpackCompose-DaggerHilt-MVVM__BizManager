@@ -14,18 +14,20 @@ import fames.systems.bizmanager.application.clients.ui.clientdetail.ClientDetail
 import fames.systems.bizmanager.application.clients.ui.myclients.MyClientsScreen
 import fames.systems.bizmanager.application.clients.ui.newclient.NewClientScreen
 import fames.systems.bizmanager.application.clients.ui.clientdetail.ClientDetailViewModel
+import fames.systems.bizmanager.application.clients.ui.editclient.EditClientScreen
+import fames.systems.bizmanager.application.clients.ui.editclient.EditClientViewModel
 import fames.systems.bizmanager.application.clients.ui.myclients.MyClientsViewModel
 import fames.systems.bizmanager.application.clients.ui.newclient.NewClientViewModel
-import fames.systems.bizmanager.application.dashboard.ui.screens.DashboardScreen
-import fames.systems.bizmanager.application.dashboard.ui.viewmodel.DashboardViewModel
+import fames.systems.bizmanager.application.dashboard.ui.DashboardScreen
+import fames.systems.bizmanager.application.dashboard.ui.DashboardViewModel
 import fames.systems.bizmanager.application.products.ui.ProductViewModel
 import fames.systems.bizmanager.application.products.ui.ProductsScreen
 import fames.systems.bizmanager.application.settings.ui.SettingsScreen
 import fames.systems.bizmanager.application.settings.ui.SettingsViewModel
 import fames.systems.bizmanager.application.tpvpos.ui.TpvPosScreen
 import fames.systems.bizmanager.application.tpvpos.ui.TpvPosViewModel
-import fames.systems.bizmanager.infrastructure.navigation.screenRoutes.AppScreens
-import fames.systems.bizmanager.infrastructure.navigation.screenRoutes.BottomBarScreens
+import fames.systems.bizmanager.infrastructure.navigation.routes.AppScreens
+import fames.systems.bizmanager.infrastructure.navigation.routes.BottomBarScreens
 
 @Composable
 fun AppNavigationGraph(navController: NavHostController) {
@@ -65,6 +67,11 @@ fun AppNavigationGraph(navController: NavHostController) {
             val clientId = navBackStackEntry.arguments?.getString("clientId") ?: ""
             val viewModel = hiltViewModel<ClientDetailViewModel>()
             ClientDetailScreen(viewModel, navController, clientId)
+        }
+        composable(AppScreens.EditClientScreen.route + "/{clientId}") { navBackStackEntry ->
+            val clientId = navBackStackEntry.arguments?.getString("clientId") ?: ""
+            val viewModel = hiltViewModel<EditClientViewModel>()
+            EditClientScreen(viewModel, navController, clientId)
         }
 
         // TPV-POS

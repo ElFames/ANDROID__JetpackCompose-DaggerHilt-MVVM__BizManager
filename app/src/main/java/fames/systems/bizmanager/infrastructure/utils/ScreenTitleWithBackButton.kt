@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.application.clients.ui.clientdetail.components
+package fames.systems.bizmanager.infrastructure.utils
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,10 +17,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import fames.systems.bizmanager.application.clients.ui.clientdetail.components.CancelButton
 import fames.systems.bizmanager.infrastructure.resources.buttonColor
 
 @Composable
-fun ClientDetailTitle(title: String, navController: NavHostController) {
+fun ScreenTitleWithBackButton(title: String, navController: NavHostController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

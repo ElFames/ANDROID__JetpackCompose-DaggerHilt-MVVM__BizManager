@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.infrastructure.navigation.screenRoutes
+package fames.systems.bizmanager.infrastructure.navigation.routes
 
 
 sealed class AppScreens(val route: String) {
@@ -8,4 +8,5 @@ sealed class AppScreens(val route: String) {
 
     object ClientDetailScreen: AppScreens(route = "detail_client")
     object NewClientScreen: AppScreens(route = "new_client")
+    object EditClientScreen: AppScreens(route = "edit_client")
 }

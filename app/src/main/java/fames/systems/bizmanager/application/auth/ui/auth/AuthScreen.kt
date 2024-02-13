@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import fames.systems.bizmanager.application.auth.ui.auth.components.NavigateLoginScreenButton
 import fames.systems.bizmanager.application.auth.ui.auth.components.NavigateRegisterScreenButton
-import fames.systems.bizmanager.application.auth.ui.shared.HeaderImage
+import fames.systems.bizmanager.infrastructure.utils.HeaderImage
 import fames.systems.bizmanager.infrastructure.resources.authBackgroundColor
 
 @Composable

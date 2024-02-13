@@ -16,7 +16,7 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import fames.systems.bizmanager.infrastructure.navigation.screenRoutes.BottomBarScreens
+import fames.systems.bizmanager.infrastructure.navigation.routes.BottomBarScreens
 import fames.systems.bizmanager.infrastructure.resources.buttonColor
 
 @Composable

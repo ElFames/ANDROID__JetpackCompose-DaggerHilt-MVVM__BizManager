@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import fames.systems.bizmanager.R
 import fames.systems.bizmanager.application.dashboard.domain.models.Filter
-import fames.systems.bizmanager.application.dashboard.ui.viewmodel.DashboardViewModel
+import fames.systems.bizmanager.application.dashboard.ui.DashboardViewModel
 import fames.systems.bizmanager.infrastructure.resources.buttonColor
 
 @Composable

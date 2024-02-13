@@ -114,6 +114,17 @@ class ClientsRepository @Inject constructor(
         lastClientViewed = client
     }
 
+    fun updateClient(newClient: Client): Boolean {
+        val response = clientsService.updateClient(newClient)
+        return if (response) {
+            val index = clients.indexOfFirst { it.id == newClient.id }
+            clients[index] = newClient
+            val originalIndex = originalClients.indexOfFirst { it.id == newClient.id }
+            originalClients[originalIndex] = newClient
+            true
+        } else false
+    }
+
 }
 
 val clientsTest = MutableList(14) { clientId ->

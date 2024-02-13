@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import fames.systems.bizmanager.application.auth.ui.shared.HeaderImage
+import fames.systems.bizmanager.infrastructure.utils.HeaderImage
 import fames.systems.bizmanager.infrastructure.resources.authBackgroundColor
 
 

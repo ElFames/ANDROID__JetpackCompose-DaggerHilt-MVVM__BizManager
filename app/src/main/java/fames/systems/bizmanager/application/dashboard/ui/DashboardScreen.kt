@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.application.dashboard.ui.screens
+package fames.systems.bizmanager.application.dashboard.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,9 +21,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import fames.systems.bizmanager.application.auth.ui.shared.HorizontalLine
-import fames.systems.bizmanager.application.dashboard.ui.viewmodel.DashboardViewModel
+import fames.systems.bizmanager.infrastructure.utils.HorizontalLine
 import fames.systems.bizmanager.application.dashboard.ui.components.FilterDashboardBar
 import fames.systems.bizmanager.application.dashboard.ui.components.MyBarChart
 import fames.systems.bizmanager.application.dashboard.ui.components.ShowStatistics

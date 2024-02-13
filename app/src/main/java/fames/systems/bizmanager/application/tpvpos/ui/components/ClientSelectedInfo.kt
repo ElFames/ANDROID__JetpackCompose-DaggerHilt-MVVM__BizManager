@@ -4,12 +4,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Text
@@ -31,7 +29,8 @@ fun ClientSelectedInfo(
     viewModel: TpvPosViewModel,
     navigateClientsScreen: () -> Unit,
 ) {
-    val text = clientSelected?.name ?: "Ningún cliente seleccionado"
+    var textClientSelected = "Cliente seleccionado: ${clientSelected?.name}"
+    if (clientSelected == null) textClientSelected = "Ningún cliente seleccionado"
 
     Row(
         modifier = Modifier.fillMaxWidth().border(1.dp, Color.DarkGray).padding(13.dp)
@@ -42,7 +41,7 @@ fun ClientSelectedInfo(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
-            text = text,
+            text = textClientSelected,
             color = Color.Black,
             fontSize = 14.sp,
             fontStyle = FontStyle.Normal,

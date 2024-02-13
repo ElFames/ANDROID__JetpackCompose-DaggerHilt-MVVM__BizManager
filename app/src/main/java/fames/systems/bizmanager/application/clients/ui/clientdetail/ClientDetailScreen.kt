@@ -14,11 +14,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Warning
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -30,13 +28,13 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fames.systems.bizmanager.application.auth.ui.register.components.AlertDialogError
-import fames.systems.bizmanager.application.auth.ui.shared.HorizontalLine
-import fames.systems.bizmanager.application.auth.ui.shared.ShowLoadingScreen
+import fames.systems.bizmanager.infrastructure.utils.ShowLoadingScreen
 import fames.systems.bizmanager.application.clients.ui.clientdetail.components.ClientDataContainer
-import fames.systems.bizmanager.application.clients.ui.clientdetail.components.ClientDetailTitle
+import fames.systems.bizmanager.infrastructure.utils.ScreenTitleWithBackButton
 import fames.systems.bizmanager.application.clients.ui.clientdetail.components.LastPurchases
 import fames.systems.bizmanager.domain.models.UiState
-import fames.systems.bizmanager.infrastructure.navigation.screenRoutes.BottomBarScreens
+import fames.systems.bizmanager.infrastructure.navigation.routes.AppScreens
+import fames.systems.bizmanager.infrastructure.navigation.routes.BottomBarScreens
 
 @Composable
 fun ClientDetailScreen(
@@ -72,7 +70,7 @@ fun ShowClientDetailScreen(
         modifier = Modifier.fillMaxSize(),
         shape = RectangleShape
     ) {
-        ClientDetailTitle(title = "Detalles del cliente ${client?.id}", navController)
+        ScreenTitleWithBackButton(title = "Detalles del cliente ${client?.id}", navController)
         Row(modifier = Modifier.fillMaxWidth().padding(13.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.End
@@ -80,7 +78,7 @@ fun ShowClientDetailScreen(
             Image(modifier = Modifier
                 .border(1.dp, Color.DarkGray, shape = MaterialTheme.shapes.medium)
                 .padding(5.dp)
-                .clickable { /* navegar a la pantalla de editar cliente */ },
+                .clickable { navController.navigate(AppScreens.EditClientScreen.route + "/${client?.id}") },
                 imageVector = Icons.Default.Edit,
                 contentDescription = "edit_icon"
             )

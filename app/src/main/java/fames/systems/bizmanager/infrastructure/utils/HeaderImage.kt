@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.application.auth.ui.shared
+package fames.systems.bizmanager.infrastructure.utils
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth

@@ -20,13 +20,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import fames.systems.bizmanager.application.auth.ui.register.components.AlertDialogError
-import fames.systems.bizmanager.application.auth.ui.shared.HorizontalLine
-import fames.systems.bizmanager.application.auth.ui.shared.ShowLoadingScreen
+import fames.systems.bizmanager.infrastructure.utils.HorizontalLine
+import fames.systems.bizmanager.infrastructure.utils.ShowLoadingScreen
 import fames.systems.bizmanager.application.clients.domain.models.Client
 import fames.systems.bizmanager.application.clients.ui.myclients.components.ClientInfoContainer
 import fames.systems.bizmanager.application.clients.ui.myclients.components.ClientRankingContainer
 import fames.systems.bizmanager.application.clients.ui.myclients.components.FilterClientBar
-import fames.systems.bizmanager.application.dashboard.ui.screens.InsertTitle
+import fames.systems.bizmanager.application.dashboard.ui.InsertTitle
 import fames.systems.bizmanager.domain.models.UiState
 
 @Composable
