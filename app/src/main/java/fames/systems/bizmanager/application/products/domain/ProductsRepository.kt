@@ -22,8 +22,9 @@ class ProductsRepository @Inject constructor(
 val productsTest = MutableList(10) { productId ->
     Product(
         id = UUID.randomUUID().toString(),
-        name = "Producto $productId",
+        name = "Producto${productId}sos",
         sellPrice = 20.0 + productId * 5,
+        unds = 0,
         expenses = MutableList(3) { expenseId ->
             SubProduct(
                 id = UUID.randomUUID().toString(),

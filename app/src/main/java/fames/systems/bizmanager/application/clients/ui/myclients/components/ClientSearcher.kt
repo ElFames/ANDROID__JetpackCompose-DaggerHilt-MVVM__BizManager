@@ -1,6 +1,5 @@
 package fames.systems.bizmanager.application.clients.ui.myclients.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -13,7 +12,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -32,8 +30,7 @@ fun ClientSearcher(clientToSearch: String, onUserToSearchChange: (String) -> Uni
         modifier = Modifier
             .height(76.dp)
             .width(280.dp)
-            .padding(12.dp)
-            .background(color = Color.LightGray),
+            .padding(12.dp),
         value = clientToSearch,
         onValueChange = { onUserToSearchChange(it) },
         placeholder = { Text(text = "Buscador...") },

@@ -44,7 +44,7 @@ class ClientsRepository @Inject constructor(
     suspend fun loadClients(): MutableList<Client> {
         return clients.ifEmpty {
             /**
-             clients = clientsService.loadClients()
+            clients = clientsService.loadClients()
              **/
 
             clients = clientsTest
@@ -58,7 +58,7 @@ class ClientsRepository @Inject constructor(
         clients.forEach { client ->
             val totalProfit = client.purchases.sumOf { purchase ->
                 purchase.products.sumOf { product ->
-                    product.second.sellPrice - product.second.expenses.sumOf { subProduct ->
+                    product.sellPrice - product.expenses.sumOf { subProduct ->
                         subProduct.costPrice
                     }
                 }
@@ -68,28 +68,34 @@ class ClientsRepository @Inject constructor(
         return clientRanking.sortedByDescending { it.second }
     }
 
-    suspend fun newClient(name: String, email: String, phone: String, address: String): Pair<Boolean, String> {
+    suspend fun newClient(
+        name: String,
+        email: String,
+        phone: String,
+        address: String
+    ): Pair<Boolean, String> {
         /**
         val reponseMessage = clientsService.insertClient(name, email, phone, address)
 
         return if (reponseMessage == "No hay conexión con el servidor" || reponseMessage == "El telefono ya está en uso") {
-            Pair(false, reponseMessage)
+        Pair(false, reponseMessage)
         } else {
-            val clientAdded = Client(
-                reponseMessage.toInt(),
-                name,
-                email,
-                phone,
-                address,
-                mutableListOf()
-            )
-            clients.add(clientAdded)
-            originalClients.add(clientAdded)
-            Pair(true, reponseMessage)
+        val clientAdded = Client(
+        reponseMessage.toInt(),
+        name,
+        email,
+        phone,
+        address,
+        mutableListOf()
+        )
+        clients.add(clientAdded)
+        originalClients.add(clientAdded)
+        Pair(true, reponseMessage)
         }**/
 
         val id = (50..9999).random()
-        val testClient = Client((id..9999999).random(), name, email, phone, address, mutableListOf())
+        val testClient =
+            Client((id..9999999).random(), name, email, phone, address, mutableListOf())
         clients.add(testClient)
         originalClients.add(testClient)
         return Pair(true, testClient.id.toString())
@@ -121,22 +127,19 @@ val clientsTest = MutableList(14) { clientId ->
             Purchase(
                 id = UUID.randomUUID().toString(),
                 products = MutableList(3) { productId ->
-                    Pair(
-                        productId,
-                        Product(
-                            id = UUID.randomUUID().toString(),
-                            name = "Producto $purchaseId",
-                            sellPrice = 10.0 + clientId * 5,
-                            expenses = MutableList(5) {
-                                SubProduct(
-                                    id = UUID.randomUUID().toString(),
-                                    name = "SubProducto $clientId",
-                                    costPrice = 5.0,
-                                    quantity = clientId + 1,
-                                    quantityCurrency = if (purchaseId % 2 == 0) "g" else "ml"
-                                )
-                            }
-                        )
+                    Product(
+                        id = UUID.randomUUID().toString(),
+                        name = "Producto $purchaseId",
+                        sellPrice = 10.0 + clientId * 5,
+                        expenses = MutableList(5) {
+                            SubProduct(
+                                id = UUID.randomUUID().toString(),
+                                name = "SubProducto $clientId",
+                                costPrice = 5.0,
+                                quantity = clientId + 1,
+                                quantityCurrency = if (purchaseId % 2 == 0) "g" else "ml"
+                            )
+                        }
                     )
                 },
                 dateTime = getCurrentDateTime(),

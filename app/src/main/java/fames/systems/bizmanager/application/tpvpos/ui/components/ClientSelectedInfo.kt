@@ -4,10 +4,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Text
@@ -24,11 +26,18 @@ import fames.systems.bizmanager.application.clients.domain.models.Client
 import fames.systems.bizmanager.application.tpvpos.ui.TpvPosViewModel
 
 @Composable
-fun ClientSelectedInfo(clientSelected: Client?, viewModel: TpvPosViewModel) {
+fun ClientSelectedInfo(
+    clientSelected: Client?,
+    viewModel: TpvPosViewModel,
+    navigateClientsScreen: () -> Unit,
+) {
     val text = clientSelected?.name ?: "Ningún cliente seleccionado"
 
     Row(
-        modifier = Modifier.fillMaxWidth().border(1.dp, Color.Black).padding(16.dp),
+        modifier = Modifier.fillMaxWidth().border(1.dp, Color.DarkGray).padding(13.dp)
+            .clickable {
+                navigateClientsScreen()
+            },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {

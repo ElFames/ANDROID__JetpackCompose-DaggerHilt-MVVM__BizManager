@@ -18,7 +18,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -66,14 +65,15 @@ fun ShowClientDetailScreen(
     navController: NavHostController
 ) {
     val client by viewModel.client.observeAsState()
-    
+    client?.let { viewModel.setLastClientViewed(client!!) }
+
     Card(
         colors = CardDefaults.cardColors(containerColor = Color.LightGray),
         modifier = Modifier.fillMaxSize(),
         shape = RectangleShape
     ) {
         ClientDetailTitle(title = "Detalles del cliente ${client?.id}", navController)
-        Row(modifier = Modifier.fillMaxWidth().padding(16.dp),
+        Row(modifier = Modifier.fillMaxWidth().padding(13.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.End
         ) {

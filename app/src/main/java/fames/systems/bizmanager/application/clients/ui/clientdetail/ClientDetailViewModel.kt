@@ -28,4 +28,8 @@ class ClientDetailViewModel @Inject constructor(
         _uiState.value = UiState.SUCCESS
     }
 
+    fun setLastClientViewed(client: Client) {
+        repository.setLastClientView(client)
+    }
+
 }

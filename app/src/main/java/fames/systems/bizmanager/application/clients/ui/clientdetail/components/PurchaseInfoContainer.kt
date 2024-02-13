@@ -48,7 +48,7 @@ fun PurchaseInfoContainer(purchase: Purchase) {
             ) {
                 Text(
                     modifier = Modifier.padding(10.dp),
-                    text = "${product.first}  ${product.second.name}",
+                    text = "${product.unds}  ${product.name}",
                     fontFamily = FontFamily.Serif,
                     fontSize = 16.sp,
                     color = Color.Black

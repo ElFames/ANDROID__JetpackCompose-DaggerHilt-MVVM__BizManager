@@ -32,7 +32,7 @@ import fames.systems.bizmanager.application.clients.domain.models.Client
 @Composable
 fun ClientDataContainer(client: Client?) {
     Text(
-        modifier = Modifier.padding(start = 17.dp, top = 25.dp),
+        modifier = Modifier.padding(start = 17.dp),
         text = "Información",
         fontWeight = FontWeight.Bold,
         fontFamily = FontFamily.Serif,
