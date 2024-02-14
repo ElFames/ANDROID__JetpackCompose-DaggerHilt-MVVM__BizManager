@@ -13,6 +13,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.RenderMode
 import com.airbnb.lottie.compose.LottieAnimation
@@ -30,12 +31,11 @@ fun ShowLoadingScreen() {
 
     Column(
         modifier = Modifier
-            .background(color = authBackgroundColor)
+            .background(color = Color.Transparent)
             .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        HeaderImage()
         LottieAnimation(
             modifier = Modifier.size(150.dp),
             composition = composition,

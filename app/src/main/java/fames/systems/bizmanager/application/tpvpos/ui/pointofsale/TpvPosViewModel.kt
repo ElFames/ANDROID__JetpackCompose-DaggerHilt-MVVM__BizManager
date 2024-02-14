@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.application.tpvpos.ui
+package fames.systems.bizmanager.application.tpvpos.ui.pointofsale
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -99,7 +99,7 @@ class TpvPosViewModel @Inject constructor(
         }
     }
 
-    fun hideError() {
+    fun finishSelection() {
         _uiState.value = UiState.IDLE
     }
 

@@ -26,8 +26,8 @@ import fames.systems.bizmanager.application.clients.domain.models.Client
 import fames.systems.bizmanager.application.clients.ui.myclients.components.ClientInfoContainer
 import fames.systems.bizmanager.application.clients.ui.myclients.components.ClientRankingContainer
 import fames.systems.bizmanager.application.clients.ui.myclients.components.FilterClientBar
-import fames.systems.bizmanager.application.dashboard.ui.InsertTitle
 import fames.systems.bizmanager.domain.models.UiState
+import fames.systems.bizmanager.infrastructure.utils.InsertTitle
 
 @Composable
 fun MyClientsScreen(viewModel: MyClientsViewModel, navController: NavHostController) {

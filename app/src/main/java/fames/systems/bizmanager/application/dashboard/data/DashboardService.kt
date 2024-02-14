@@ -1,6 +1,7 @@
 package fames.systems.bizmanager.application.dashboard.data
 
 import fames.systems.bizmanager.application.dashboard.domain.models.Filter
+import fames.systems.bizmanager.application.products.domain.models.Product
 import fames.systems.bizmanager.domain.Session
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -43,6 +44,22 @@ class DashboardService @Inject constructor(
             Filter.MES -> dashboardAPI.getIncomeMonth("dashboard/income/month", authHeader).body() ?: -1.0
         }
 
+    }
+
+    suspend fun getMoreProfit(filter: Filter): MutableList<Product> {
+        return when(filter) {
+            Filter.DIA -> dashboardAPI.getMoreProfitDay("dashboard/moreProfit/day", authHeader).body() ?: mutableListOf()
+            Filter.SEMANA -> dashboardAPI.getMoreProfitWeek("dashboard/moreProfit/week", authHeader).body() ?: mutableListOf()
+            Filter.MES -> dashboardAPI.getMoreProfitMonth("dashboard/moreProfit/month", authHeader).body() ?: mutableListOf()
+        }
+    }
+
+    suspend fun getBestSeller(filter: Filter): MutableList<Product> {
+        return when(filter) {
+            Filter.DIA -> dashboardAPI.getBestSellerDay("dashboard/bestSeller/day", authHeader).body() ?: mutableListOf()
+            Filter.SEMANA -> dashboardAPI.getBestSellerWeek("dashboard/bestSeller/week", authHeader).body() ?: mutableListOf()
+            Filter.MES -> dashboardAPI.getBestSellerMonth("dashboard/bestSeller/month", authHeader).body() ?: mutableListOf()
+        }
     }
 
 

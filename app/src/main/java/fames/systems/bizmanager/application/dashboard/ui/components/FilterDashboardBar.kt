@@ -15,8 +15,11 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -34,14 +37,15 @@ import fames.systems.bizmanager.application.dashboard.ui.DashboardViewModel
 import fames.systems.bizmanager.infrastructure.resources.buttonColor
 
 @Composable
-fun FilterDashboardBar(viewModel: DashboardViewModel, showCharts: Boolean, changeShowChartState: (Boolean) -> Unit) {
-    var selectedFilter by rememberSaveable { mutableStateOf(Filter.DIA) }
+fun FilterDashboardBar(viewModel: DashboardViewModel) {
+    val selectedFilter: Filter by viewModel.filter.observeAsState(initial = Filter.DIA)
+
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
             .background(color = Color.DarkGray)
             .padding(16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
+        horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically
     ) {
         item {
@@ -53,21 +57,14 @@ fun FilterDashboardBar(viewModel: DashboardViewModel, showCharts: Boolean, chang
                 fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.width(10.dp))
             FilterButton {
-                selectedFilter = when (selectedFilter) {
+                val newFilter = when (selectedFilter) {
                     Filter.DIA -> Filter.SEMANA
                     Filter.SEMANA -> Filter.MES
                     else -> Filter.DIA
                 }
-                viewModel.updateFilterStatistics(selectedFilter)
+                viewModel.updateFilterStatistics(newFilter)
             }
         }
-
-        item {
-            InfoButton(showCharts) { changeShowChartState(false) }
-            Spacer(modifier = Modifier.width(12.dp))
-            ChartButton(showCharts) { changeShowChartState(true) }
-        }
-
     }
 }
 

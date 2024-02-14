@@ -24,8 +24,10 @@ import fames.systems.bizmanager.application.products.ui.ProductViewModel
 import fames.systems.bizmanager.application.products.ui.ProductsScreen
 import fames.systems.bizmanager.application.settings.ui.SettingsScreen
 import fames.systems.bizmanager.application.settings.ui.SettingsViewModel
-import fames.systems.bizmanager.application.tpvpos.ui.TpvPosScreen
-import fames.systems.bizmanager.application.tpvpos.ui.TpvPosViewModel
+import fames.systems.bizmanager.application.tpvpos.ui.onfinishpurchase.PurchaseInvoicerScreen
+import fames.systems.bizmanager.application.tpvpos.ui.onfinishpurchase.PurchaseInvoicerViewModel
+import fames.systems.bizmanager.application.tpvpos.ui.pointofsale.TpvPosScreen
+import fames.systems.bizmanager.application.tpvpos.ui.pointofsale.TpvPosViewModel
 import fames.systems.bizmanager.infrastructure.navigation.routes.AppScreens
 import fames.systems.bizmanager.infrastructure.navigation.routes.BottomBarScreens
 
@@ -78,6 +80,10 @@ fun AppNavigationGraph(navController: NavHostController) {
         composable(BottomBarScreens.TpvPosScreen.route) {
             val viewModel = hiltViewModel<TpvPosViewModel>()
             TpvPosScreen(viewModel, navController)
+        }
+        composable(AppScreens.PurchaseInvoicerScreen.route) {
+            val viewModel = hiltViewModel<PurchaseInvoicerViewModel>()
+            PurchaseInvoicerScreen(viewModel, navController)
         }
 
         // PRODUCTS

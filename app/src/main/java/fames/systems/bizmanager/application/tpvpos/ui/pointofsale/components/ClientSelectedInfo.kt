@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.application.tpvpos.ui.components
+package fames.systems.bizmanager.application.tpvpos.ui.pointofsale.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -21,7 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import fames.systems.bizmanager.application.clients.domain.models.Client
-import fames.systems.bizmanager.application.tpvpos.ui.TpvPosViewModel
+import fames.systems.bizmanager.application.tpvpos.ui.pointofsale.TpvPosViewModel
 
 @Composable
 fun ClientSelectedInfo(

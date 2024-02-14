@@ -7,6 +7,11 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fames.systems.bizmanager.application.dashboard.domain.DashboardRepository
 import fames.systems.bizmanager.application.dashboard.domain.models.Filter
+import fames.systems.bizmanager.application.products.domain.models.Product
+import fames.systems.bizmanager.domain.models.UiState
+import fames.systems.bizmanager.infrastructure.utils.Formats
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -14,61 +19,80 @@ import javax.inject.Inject
 class DashboardViewModel @Inject constructor(
     private val repository: DashboardRepository
 ): ViewModel() {
-    init {
-        getNumOfSales(Filter.DIA)
-        getExpenses(Filter.DIA)
-        getProfit(Filter.DIA)
-        getIncome(Filter.DIA)
-    }
+    private val _uiState = MutableStateFlow(UiState.IDLE)
+    val uiState: StateFlow<UiState> = _uiState
 
-    private val _bestSellers = MutableLiveData<List<String>>()
-    val bestSellers: LiveData<List<String>> = _bestSellers
+    private val _bestSellers = MutableLiveData<MutableList<Product>>()
+    val bestSellers: LiveData<MutableList<Product>> = _bestSellers
 
-    private val _moreProfit = MutableLiveData<List<String>>()
-    val moreProfit: LiveData<List<String>> = _moreProfit
+    private val _moreProfit = MutableLiveData<MutableList<Product>>()
+    val moreProfit: LiveData<MutableList<Product>> = _moreProfit
 
-    private val _income = MutableLiveData<List<String>>()
-    val income: LiveData<List<String>> = _income
+    private val _income = MutableLiveData<String>()
+    val income: LiveData<String> = _income
 
-    private val _expenses = MutableLiveData<List<String>>()
-    val expenses: LiveData<List<String>> = _expenses
+    private val _expenses = MutableLiveData<String>()
+    val expenses: LiveData<String> = _expenses
 
-    private val _profit = MutableLiveData<List<String>>()
-    val profit: LiveData<List<String>> = _profit
+    private val _profit = MutableLiveData<String>()
+    val profit: LiveData<String> = _profit
 
-    private val _numOfSales = MutableLiveData<List<String>>()
-    val numOfSales: LiveData<List<String>> = _numOfSales
+    private val _numOfSales = MutableLiveData<String>()
+    val numOfSales: LiveData<String> = _numOfSales
 
-    fun updateFilterStatistics(filter: Filter) {
-        getNumOfSales(filter)
-        getExpenses(filter)
-        getProfit(filter)
-        getIncome(filter)
-    }
+    private val _filter = MutableLiveData(Filter.DIA)
+    val filter: LiveData<Filter> = _filter
 
-    private fun getNumOfSales(filter: Filter) {
+    fun updateFilterStatistics(currentFilter: Filter) {
+        this._filter.value = currentFilter
+
         viewModelScope.launch {
-            val newNumOfSales = repository.getNumOfSales(filter)
-            _numOfSales.value = listOf(newNumOfSales.toString())
+            var response = true
+            _uiState.value = UiState.LOADING
+            response = getNumOfSales()
+            response = getExpenses()
+            response = getProfit()
+            response = getIncome()
+            response = getBestSellers()
+            response = getMoreProfit()
+            response = true // simulate a successful response
+            _uiState.value =
+                if (response) UiState.SUCCESS
+                else UiState.ERROR
         }
     }
-    private fun getIncome(filter: Filter) {
-        viewModelScope.launch {
-            val newIncome = repository.getIncome(filter)
-            _income.value = listOf("$newIncome $")
-        }
+
+    private suspend fun getMoreProfit(): Boolean {
+            val newMoreProfit = repository.getMoreProfit(_filter.value!!)
+            _moreProfit.value = newMoreProfit
+        return newMoreProfit.isNotEmpty()
     }
-    private fun getExpenses(filter: Filter) {
-        viewModelScope.launch {
-            val newExpenses = repository.getExpenses(filter)
-            _expenses.value = listOf("$newExpenses $")
-        }
+
+    private suspend fun getBestSellers(): Boolean {
+            val newBestSellers = repository.getBestSellers(_filter.value!!)
+            _bestSellers.value = newBestSellers
+        return newBestSellers.isNotEmpty()
     }
-    private fun getProfit(filter: Filter) {
-        viewModelScope.launch {
-            val newProfit = repository.getProfit(filter)
-            _profit.value = listOf("$newProfit $")
-        }
+
+    private suspend fun getNumOfSales(): Boolean {
+            val newNumOfSales = repository.getNumOfSales(_filter.value!!)
+            _numOfSales.value = newNumOfSales.toString()
+        return newNumOfSales != -1
+    }
+    private suspend fun getIncome(): Boolean {
+            val newIncome = repository.getIncome(_filter.value!!)
+            _income.value = "$newIncome $"
+        return newIncome != Formats.price(-1.0)
+    }
+    private suspend fun getExpenses(): Boolean {
+            val newExpenses = repository.getExpenses(_filter.value!!)
+            _expenses.value = "$newExpenses $"
+        return newExpenses != Formats.price(-1.0)
+    }
+    private suspend fun getProfit(): Boolean {
+            val newProfit = repository.getProfit(_filter.value!!)
+            _profit.value = "$newProfit $"
+        return newProfit != Formats.price(-1.0)
     }
 
 }

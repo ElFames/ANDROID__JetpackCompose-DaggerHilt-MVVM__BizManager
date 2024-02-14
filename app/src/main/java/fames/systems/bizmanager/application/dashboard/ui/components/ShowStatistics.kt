@@ -13,12 +13,12 @@ import fames.systems.bizmanager.application.dashboard.ui.DashboardViewModel
 
 @Composable
 fun ShowStatistics(viewModel: DashboardViewModel) {
-    val bestSellers: List<String> by viewModel.bestSellers.observeAsState(initial = listOf())
-    val moreProfit: List<String> by viewModel.moreProfit.observeAsState(initial = listOf())
-    val income: List<String> by viewModel.income.observeAsState(initial = listOf())
-    val expenses: List<String> by viewModel.expenses.observeAsState(initial = listOf())
-    val profit: List<String> by viewModel.profit.observeAsState(initial = listOf())
-    val numSales: List<String> by viewModel.numOfSales.observeAsState(initial = listOf())
+    val bestSellers by viewModel.bestSellers.observeAsState(initial = mutableListOf())
+    val moreProfit by viewModel.moreProfit.observeAsState(initial = mutableListOf())
+    val income by viewModel.income.observeAsState(initial = "")
+    val expenses by viewModel.expenses.observeAsState(initial = "")
+    val profit by viewModel.profit.observeAsState(initial = "")
+    val numSales by viewModel.numOfSales.observeAsState(initial = "")
 
     LazyVerticalGrid(
         columns = GridCells.Adaptive(170.dp),
@@ -28,46 +28,47 @@ fun ShowStatistics(viewModel: DashboardViewModel) {
         item {
             DashboardCard(
                 title = "Ingresos",
-                content = income,
+                content = listOf(income),
                 backgroundColor = Color.White
             )
         }
         item {
             DashboardCard(
                 title = "Gastos",
-                content = expenses,
+                content = listOf(expenses),
                 backgroundColor = Color.White
             )
         }
         item {
             DashboardCard(
                 title = "Beneficios",
-                content = profit,
+                content = listOf(profit),
                 backgroundColor = Color.White
             )
         }
         item {
             DashboardCard(
                 title = "Ventas",
-                content = numSales,
+                content = listOf(numSales),
                 backgroundColor = Color.White
             )
         }
         item {
+            val productsBestSeller = bestSellers.map { it.name }
             DashboardCard(
                 title = "Más Vendidos",
-                content = bestSellers,
+                content = productsBestSeller,
                 backgroundColor = Color.White
             )
         }
         item {
+            val productsMoreProfit = moreProfit.map { it.name }
             DashboardCard(
                 title = "Más Rentables",
-                content = moreProfit,
+                content = productsMoreProfit,
                 backgroundColor = Color.White
             )
         }
-
 
     }
 }

@@ -59,29 +59,13 @@ fun DashboardCard(title: String, content: List<String>, backgroundColor: Color) 
                 textAlign = TextAlign.Center
             )
 
-            if (content.isEmpty()) {
-                val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading_animation_circle))
-                var isPlaying by rememberSaveable { mutableStateOf(true) }
-                val progress by animateLottieCompositionAsState(composition = composition, isPlaying = isPlaying)
-
-                LottieAnimation(
-                    modifier = Modifier.size(50.dp),
-                    composition = composition,
-                    progress = {progress}
+            content.forEach { item ->
+                Text(
+                    text = item,
+                    style = TextStyle(fontSize = 18.sp, color = Color.Black),
+                    modifier = Modifier.padding(bottom = 4.dp),
+                    textAlign = TextAlign.Center
                 )
-                LaunchedEffect(key1 = progress) {
-                    if (progress == 1f) isPlaying = false
-                    if (progress == 0f) isPlaying = true
-                }
-            } else {
-                content.forEach { item ->
-                    Text(
-                        text = item,
-                        style = TextStyle(fontSize = 18.sp, color = Color.Black),
-                        modifier = Modifier.padding(bottom = 4.dp),
-                        textAlign = TextAlign.Center
-                    )
-                }
             }
 
         }

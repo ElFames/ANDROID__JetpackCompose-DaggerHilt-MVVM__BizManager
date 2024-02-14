@@ -2,6 +2,7 @@ package fames.systems.bizmanager.application.dashboard.domain
 
 import fames.systems.bizmanager.application.dashboard.domain.models.Filter
 import fames.systems.bizmanager.application.dashboard.data.DashboardService
+import fames.systems.bizmanager.application.products.domain.models.Product
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -14,6 +15,8 @@ class DashboardRepository @Inject constructor(
     private var profit: Double? = null
     private var expenses: Double? = null
     private var income: Double? = null
+    private var productsMoreProfit: MutableList<Product>? = null
+    private var productsBestSeller: MutableList<Product>? = null
     private var currentFilter = Filter.DIA
 
     suspend fun loadStatistics() {
@@ -21,6 +24,8 @@ class DashboardRepository @Inject constructor(
         getProfit(Filter.DIA)
         getExpenses(Filter.DIA)
         getIncome(Filter.DIA)
+        getBestSellers(Filter.DIA)
+        getMoreProfit(Filter.DIA)
     }
     suspend fun getNumOfSales(filter: Filter): Int {
         return if (numOfSales == null || numOfSales == -1 || currentFilter != filter) {
@@ -57,5 +62,24 @@ class DashboardRepository @Inject constructor(
             format(currentIncome)
         } else format(income!!)
     }
+
+    suspend fun getMoreProfit(filter: Filter): MutableList<Product> {
+        return if (productsMoreProfit.isNullOrEmpty() || currentFilter != filter) {
+            currentFilter = filter
+            val currentProductsMoreProfit = dashboardService.getMoreProfit(filter)
+            productsMoreProfit = currentProductsMoreProfit
+            currentProductsMoreProfit
+        } else productsMoreProfit!!
+    }
+
+    suspend fun getBestSellers(filter: Filter): MutableList<Product> {
+        return if (productsBestSeller.isNullOrEmpty() || currentFilter != filter) {
+            currentFilter = filter
+            val currentProductsBestSellers = dashboardService.getBestSeller(filter)
+            productsBestSeller = currentProductsBestSellers
+            currentProductsBestSellers
+        } else productsBestSeller!!
+    }
+
 
 }

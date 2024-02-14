@@ -37,7 +37,10 @@ fun RegisterScreen(viewModel: RegisterViewModel, navController: NavHostControlle
 
     when (uiState) {
         UiState.IDLE -> ShowRegisterScreen(viewModel, navController)
-        UiState.LOADING -> ShowLoadingScreen()
+        UiState.LOADING -> {
+            ShowRegisterScreen(viewModel, navController)
+            ShowLoadingScreen()
+        }
         UiState.ERROR -> {
             AlertDialogError(
                 icon = Icons.Default.Info,

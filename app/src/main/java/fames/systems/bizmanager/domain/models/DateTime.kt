@@ -1,5 +1,6 @@
 package fames.systems.bizmanager.domain.models
 
+import fames.systems.bizmanager.infrastructure.utils.Formats
 import kotlinx.serialization.Serializable
 import java.util.Calendar
 
@@ -11,7 +12,12 @@ data class DateTime(
     val hour: Int,
     val minute: Int,
     val second: Int
-)
+) {
+    fun getStringDateTime(): String {
+        return "${Formats.time(day)}/${Formats.time(month)}/${Formats.time(year)}" +
+                " - ${Formats.time(hour)}:${Formats.time(minute)}:${Formats.time(second)}"
+    }
+}
 
 fun getCurrentDateTime(): DateTime {
     val currentDateTime = Calendar.getInstance()

@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.application.tpvpos.ui.components
+package fames.systems.bizmanager.application.tpvpos.ui.pointofsale.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -78,8 +78,8 @@ fun TpvProductContainer(
                 )
                 Text(
                     modifier = Modifier.fillMaxHeight()
-                        .background(Color.Gray)
                         .border(0.dp, Color.Gray, MaterialTheme.shapes.medium)
+                        .background(Color.Gray)
                         .padding(8.dp),
                     text = unds.toString(),
                     color = Color.White,

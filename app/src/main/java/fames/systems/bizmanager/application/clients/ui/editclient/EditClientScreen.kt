@@ -28,8 +28,11 @@ fun EditClientScreen(
             body = "No se ha podido cargar el cliente",
             onConfirmation = { navController.popBackStack() }
         )
-        UiState.SUCCESS -> {
-            ScreenTitleWithBackButton(title = "Editar Información", navController = navController)
-        }//ShowEditClientScreen(viewModel, navController)
+        UiState.SUCCESS -> ShowEditClientScreen(viewModel, navController)
     }
+}
+
+@Composable
+fun ShowEditClientScreen(viewModel: EditClientViewModel, navController: NavHostController) {
+    ScreenTitleWithBackButton(title = "Editar Información", navController = navController)
 }

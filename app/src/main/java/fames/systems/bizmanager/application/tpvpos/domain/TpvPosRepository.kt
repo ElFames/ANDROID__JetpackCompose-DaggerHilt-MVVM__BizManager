@@ -30,4 +30,17 @@ class TpvPosRepository @Inject constructor(
         return true
     }
 
+    suspend fun onFinishPurchaseAndSendInvoice(email: String): Boolean {
+        sendInvoice(email)
+        return onFinishPurchase()
+    }
+
+    suspend fun onFinishPurchase(): Boolean {
+        return tpvPosService.onFinishPurchase(lastPurchase!!)
+    }
+
+    private suspend fun sendInvoice(email: String) {
+        tpvPosService.sendInvoice(email)
+    }
+
 }

@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.application.tpvpos.ui
+package fames.systems.bizmanager.application.tpvpos.ui.pointofsale
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -12,14 +12,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Warning
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -32,21 +28,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import fames.systems.bizmanager.application.auth.ui.register.components.AlertDialogError
 import fames.systems.bizmanager.infrastructure.utils.ShowLoadingScreen
-import fames.systems.bizmanager.application.dashboard.ui.InsertTitle
-import fames.systems.bizmanager.application.tpvpos.ui.components.ClientSelectedInfo
-import fames.systems.bizmanager.application.tpvpos.ui.components.DiscountTextField
-import fames.systems.bizmanager.application.tpvpos.ui.components.TpvProductContainer
+import fames.systems.bizmanager.application.tpvpos.ui.pointofsale.components.ButtonClearSelection
+import fames.systems.bizmanager.application.tpvpos.ui.pointofsale.components.ButtonOnFinishSelection
+import fames.systems.bizmanager.application.tpvpos.ui.pointofsale.components.ClientSelectedInfo
+import fames.systems.bizmanager.application.tpvpos.ui.pointofsale.components.DiscountTextField
+import fames.systems.bizmanager.application.tpvpos.ui.pointofsale.components.TotalPrice
+import fames.systems.bizmanager.application.tpvpos.ui.pointofsale.components.TpvProductContainer
 import fames.systems.bizmanager.domain.models.UiState
+import fames.systems.bizmanager.infrastructure.navigation.routes.AppScreens
 import fames.systems.bizmanager.infrastructure.navigation.routes.BottomBarScreens
-import fames.systems.bizmanager.infrastructure.resources.buttonColor
 import fames.systems.bizmanager.infrastructure.utils.Formats
+import fames.systems.bizmanager.infrastructure.utils.InsertTitle
+import fames.systems.bizmanager.infrastructure.utils.RegularText
 
 @Composable
 fun TpvPosScreen(viewModel: TpvPosViewModel, navController: NavHostController) {
@@ -54,21 +51,20 @@ fun TpvPosScreen(viewModel: TpvPosViewModel, navController: NavHostController) {
 
     when (uiState) {
         UiState.IDLE -> ShowTpvPos(viewModel = viewModel, navController = navController)
-        UiState.LOADING -> ShowLoadingScreen()
+        UiState.LOADING -> {
+            ShowTpvPos(viewModel = viewModel, navController = navController)
+            ShowLoadingScreen()
+        }
         UiState.ERROR -> AlertDialogError(
             icon = Icons.Default.Warning,
             title = "Error",
             body = "No hay conexión con el servidor",
-            onConfirmation = { viewModel.hideError() }
+            onConfirmation = { viewModel.finishSelection() }
         )
 
-        UiState.SUCCESS -> { // navegar a pantalla de resumen de compra y factura
-            AlertDialogError(
-                icon = Icons.Default.Check,
-                title = "OK",
-                body = "Se ha seleccionado el cliente y los productos correctamente. Navegar a pantalla de resumen de compra y factura.",
-                onConfirmation = { viewModel.hideError() }
-            )
+        UiState.SUCCESS -> {
+            viewModel.finishSelection()
+            navController.navigate(AppScreens.PurchaseInvoicerScreen.route)
         }
     }
 
@@ -81,7 +77,6 @@ fun ShowTpvPos(viewModel: TpvPosViewModel, navController: NavHostController) {
     val clientSelected by viewModel.clientSelected.observeAsState()
     val totalPrice by viewModel.totalPrice.observeAsState()
     val isSellEnable by viewModel.isSellEnable.observeAsState(initial = true)
-    var recompose = false
 
     if (!isSellEnable) {
         AlertDialogError(
@@ -100,6 +95,7 @@ fun ShowTpvPos(viewModel: TpvPosViewModel, navController: NavHostController) {
         shape = RectangleShape
     ) {
         InsertTitle("Punto de Venta")
+
         ClientSelectedInfo(clientSelected, viewModel) {
             navController.navigate(BottomBarScreens.ClientsScreen.route)
         }
@@ -109,6 +105,7 @@ fun ShowTpvPos(viewModel: TpvPosViewModel, navController: NavHostController) {
             verticalAlignment = Alignment.Top,
             horizontalArrangement = Arrangement.Center
         ) {
+
             // Products Selector
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(160.dp),
@@ -123,10 +120,7 @@ fun ShowTpvPos(viewModel: TpvPosViewModel, navController: NavHostController) {
                     item {
                         TpvProductContainer(
                             product = product,
-                            onProductSelected = {
-                                recompose = !recompose
-                                viewModel.selectProduct(product)
-                            },
+                            onProductSelected = { viewModel.selectProduct(product) },
                             unds = unds
                         )
                     }
@@ -159,24 +153,9 @@ fun ShowTpvPos(viewModel: TpvPosViewModel, navController: NavHostController) {
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.SpaceAround
                         ) {
-                            Text(
-                                text = product.unds.toString(),
-                                color = Color.Black,
-                                fontFamily = FontFamily.Serif,
-                                fontSize = 15.sp
-                            )
-                            Text(
-                                text = product.name,
-                                color = Color.Black,
-                                fontFamily = FontFamily.Serif,
-                                fontSize = 15.sp
-                            )
-                            Text(
-                                text = price + "€",
-                                color = Color.Black,
-                                fontFamily = FontFamily.Serif,
-                                fontSize = 15.sp
-                            )
+                            RegularText(product.unds.toString())
+                            RegularText(product.name)
+                            RegularText(price + "€")
                         }
                     }
                 }
@@ -192,62 +171,10 @@ fun ShowTpvPos(viewModel: TpvPosViewModel, navController: NavHostController) {
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.SpaceEvenly
                     ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(5.dp, 20.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceEvenly
-                        ) {
-                            Text(
-                                text = "Total",
-                                color = Color.Black,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold
-                            )
-                            val total = Formats.price(totalPrice ?: 0.0)
-                            Text(
-                                text = total + "€",
-                                color = Color.Black,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold
-                            )
-                        }
-
+                        TotalPrice(totalPrice)
                         DiscountTextField(viewModel, lastDiscount)
-
-                        Button(
-                            onClick = {
-                                viewModel.onFinishSelection()
-                            },
-                            modifier = Modifier.padding(5.dp),
-                            enabled = isSellEnable,
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = buttonColor,
-                                contentColor = Color.White,
-                                disabledContainerColor = Color.LightGray,
-                                disabledContentColor = Color.DarkGray
-                            )
-                        ) {
-                            Text(text = "Finalizar Compra")
-                        }
-
-                        Button(
-                            onClick = {
-                                viewModel.clearAllSelections()
-                            },
-                            modifier = Modifier.padding(5.dp),
-                            enabled = productsSelected.size > 0,
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = Color.DarkGray,
-                                contentColor = Color.White,
-                                disabledContainerColor = Color.LightGray,
-                                disabledContentColor = Color.DarkGray
-                            )
-                        ) {
-                            Text(text = "Limpiar")
-                        }
-
+                        ButtonOnFinishSelection(viewModel, isSellEnable)
+                        ButtonClearSelection(viewModel, productsSelected)
                     }
                 }
             }
@@ -255,4 +182,5 @@ fun ShowTpvPos(viewModel: TpvPosViewModel, navController: NavHostController) {
     }
 
 }
+
 

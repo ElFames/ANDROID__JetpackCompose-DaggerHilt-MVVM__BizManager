@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.application.tpvpos.ui.components
+package fames.systems.bizmanager.application.tpvpos.ui.pointofsale.components
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import fames.systems.bizmanager.application.tpvpos.ui.TpvPosViewModel
+import fames.systems.bizmanager.application.tpvpos.ui.pointofsale.TpvPosViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

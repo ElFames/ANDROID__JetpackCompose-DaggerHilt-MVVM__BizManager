@@ -1,6 +1,8 @@
 package fames.systems.bizmanager.application.clients.ui.myclients.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -21,10 +23,13 @@ fun ClientRankingContainer(clientRanking: List<Pair<String, String>>) {
         border = BorderStroke(width = 2.dp, color = Color.Gray),
         shape = MaterialTheme.shapes.small
     ) {
+        Spacer(modifier = Modifier.height(7.dp))
         if(clientRanking.isNotEmpty()) {
             clientRanking.subList(0,5).forEachIndexed { i, client ->
-        ClientRow(i, client)
+                ClientRow(i, client)
+            }
+        }
+        Spacer(modifier = Modifier.height(7.dp))
     }
-    }
-    }
+
 }

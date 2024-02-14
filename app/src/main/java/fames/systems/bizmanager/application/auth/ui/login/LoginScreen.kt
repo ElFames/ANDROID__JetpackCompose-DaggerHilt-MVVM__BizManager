@@ -32,7 +32,10 @@ fun LoginScreen(viewModel: LoginViewModel, navController: NavHostController, ini
 
     when (uiState) {
         UiState.IDLE -> ShowLoginScreen(viewModel, navController)
-        UiState.LOADING -> ShowLoadingScreen()
+        UiState.LOADING -> {
+            ShowLoginScreen(viewModel, navController)
+            ShowLoadingScreen()
+        }
         UiState.ERROR -> {
             AlertDialogError(
                 icon = Icons.Default.Warning,
