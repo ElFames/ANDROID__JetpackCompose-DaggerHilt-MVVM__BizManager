@@ -25,6 +25,6 @@ fun ClientRow(i: Int, client: Pair<String, String>) {
             Text(text = "${i + 1}   ", color = buttonColor, fontFamily = FontFamily.Serif)
             Text(text = client.first, fontFamily = FontFamily.Serif)
         }
-        item { Text(text = client.second, fontFamily = FontFamily.Serif) }
+        item { Text(text = "${client.second}€", fontFamily = FontFamily.Serif) }
     }
 }

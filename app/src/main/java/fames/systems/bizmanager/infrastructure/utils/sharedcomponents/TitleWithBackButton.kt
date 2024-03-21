@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.infrastructure.utils
+package fames.systems.bizmanager.infrastructure.utils.sharedcomponents
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,20 +16,19 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import fames.systems.bizmanager.application.clients.ui.clientdetail.components.CancelButton
-import fames.systems.bizmanager.infrastructure.resources.buttonColor
+import androidx.navigation.NavController
+import fames.systems.bizmanager.infrastructure.utils.values.buttonColor
 
 @Composable
-fun ScreenTitleWithBackButton(title: String, navController: NavHostController) {
+fun TitleWithBackButton(title: String, navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = Color.DarkGray),
+            .background(color = Color.LightGray),
         horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        CancelButton(navController = navController, Color.White)
+        BackScreenButton(navController = navController, Color.Black)
         Text(
             modifier = Modifier.padding(16.dp),
             text = title,
@@ -39,7 +38,7 @@ fun ScreenTitleWithBackButton(title: String, navController: NavHostController) {
                 fontFamily = FontFamily.Serif,
                 fontStyle = FontStyle.Italic
             ),
-            color = buttonColor
+            color = Color.Black
         )
     }
 }

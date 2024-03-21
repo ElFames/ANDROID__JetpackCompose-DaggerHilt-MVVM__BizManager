@@ -15,7 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import fames.systems.bizmanager.domain.models.Purchase
-import fames.systems.bizmanager.infrastructure.utils.Formats
+import fames.systems.bizmanager.infrastructure.utils.values.Formats
 
 @Composable
 fun PurchaseInfoContainer(purchase: Purchase) {

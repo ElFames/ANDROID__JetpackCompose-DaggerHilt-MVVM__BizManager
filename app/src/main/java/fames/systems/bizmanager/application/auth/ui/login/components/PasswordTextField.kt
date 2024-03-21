@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -33,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import fames.systems.bizmanager.R
@@ -40,7 +42,7 @@ import fames.systems.bizmanager.application.auth.ui.login.LoginViewModel
 import fames.systems.bizmanager.infrastructure.resources.authBackgroundColor
 import fames.systems.bizmanager.infrastructure.resources.buttonColor
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PasswordTextField(password: String, onLoginChange: (String) -> Unit) {
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -51,7 +53,7 @@ fun PasswordTextField(password: String, onLoginChange: (String) -> Unit) {
         modifier = Modifier
             .padding(horizontal = 25.dp, vertical = 7.dp)
             .border(border = BorderStroke(1.dp, buttonColor), shape = ShapeDefaults.Small)
-            .fillMaxWidth()
+            .width(Dp.Infinity)
             .height(52.dp),
         placeholder = { Text("Introduce tu contraseña...", color = Color.Gray) },
         leadingIcon = {

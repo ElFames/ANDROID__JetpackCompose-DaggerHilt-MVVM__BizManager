@@ -35,7 +35,7 @@ fun BottomBar(navController: NavHostController) {
     if (bottomBarDestination) {
         BottomAppBar(
             modifier = Modifier,
-            containerColor = Color.DarkGray,
+            containerColor = Color.LightGray,
             tonalElevation = 4.dp
         ) {
             screens.forEach { screen ->
@@ -69,11 +69,11 @@ fun RowScope.AddItem(
             }
         },
         colors = NavigationBarItemDefaults.colors(
-            selectedIconColor = Color.Black,
-            selectedTextColor = buttonColor,
-            indicatorColor = buttonColor,
-            unselectedIconColor = Color.Gray,
-            unselectedTextColor = Color.Gray
+            selectedIconColor = Color.White,
+            selectedTextColor = Color.Black,
+            indicatorColor = Color.Gray,
+            unselectedIconColor = Color.DarkGray,
+            unselectedTextColor = Color.DarkGray
         )
     )
 }

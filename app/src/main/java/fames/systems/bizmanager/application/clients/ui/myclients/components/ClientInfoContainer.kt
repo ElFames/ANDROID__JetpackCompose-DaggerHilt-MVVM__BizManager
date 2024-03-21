@@ -36,7 +36,7 @@ fun ClientInfoContainer(containerColor: Color, client: Client, navController: Na
         modifier = Modifier
             .padding(10.dp)
             .clickable { navController.navigate(route = AppScreens.ClientDetailScreen.route + "/${client.id}") },
-        elevation = CardDefaults.cardElevation(4.dp),
+        elevation = CardDefaults.cardElevation(1.dp),
         colors = CardDefaults.cardColors(
             containerColor = containerColor,
             contentColor = Color.Black

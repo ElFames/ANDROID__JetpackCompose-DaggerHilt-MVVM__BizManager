@@ -13,9 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import fames.systems.bizmanager.infrastructure.utils.Formats
-import fames.systems.bizmanager.infrastructure.utils.RegularText
+import fames.systems.bizmanager.infrastructure.utils.values.Formats
+import fames.systems.bizmanager.infrastructure.utils.values.RegularText
 
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -33,6 +33,7 @@ class TpvPosViewModel @Inject constructor(
 
     private val _totalPrice = MutableLiveData(0.00)
     val totalPrice: LiveData<Double> = _totalPrice
+    private val _totalPriceOriginal = MutableLiveData(_totalPrice.value!!)
 
     private val _allProducts = MutableLiveData(productsRepository.getProducts())
     val allProducts: LiveData<MutableList<Product>> = _allProducts
@@ -83,20 +84,25 @@ class TpvPosViewModel @Inject constructor(
     private fun updateTotalPrice() {
         val totalPrice = _productsSelected.value?.sumOf { it.sellPrice * it.unds } ?: 0.0
         _totalPrice.value = totalPrice
+        _totalPriceOriginal.value = _totalPrice.value!!
     }
 
     fun clearAllSelections() {
         _productsSelected.value = mutableListOf()
         _totalPrice.value = 0.0
+        _totalPriceOriginal.value = _totalPrice.value!!
     }
 
     fun applyDiscount(discount: Int) {
-        val totalPrice = _totalPrice.value!!
+        val totalPrice = _totalPriceOriginal.value!!
+
         if (discount == 0) updateTotalPrice()
         else {
             val newPrice = totalPrice - ((totalPrice / 100) * discount)
             _totalPrice.value = newPrice
         }
+
+        _totalPriceOriginal.value = totalPrice
     }
 
     fun finishSelection() {
@@ -118,8 +124,10 @@ class TpvPosViewModel @Inject constructor(
     }
 
     fun loadProducts() {
-        productsRepository.loadProducts()
-        _allProducts.value = productsRepository.getProducts()
+        viewModelScope.launch {
+            productsRepository.loadProducts()
+            _allProducts.value = productsRepository.getProducts()
+        }
     }
 
 }

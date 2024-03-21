@@ -13,5 +13,5 @@ sealed class BottomBarScreens(val route: String, val title: String, val icon: Im
     object ClientsScreen: BottomBarScreens(route = "clients", title = "Clientes", icon = Icons.Outlined.Person)
     object TpvPosScreen: BottomBarScreens(route = "tpv_pos", title = "TPV", icon = Icons.Outlined.ShoppingCart)
     object ProductsScreen: BottomBarScreens(route = "products", title = "Productos", icon = Icons.Outlined.Home)
-    object SettingsScreen: BottomBarScreens(route = "settings", title = "Ajustes", icon = Icons.Outlined.Settings)
+    object SettingsScreen: BottomBarScreens(route = "settings", title = "Avanzado", icon = Icons.Outlined.Settings)
 }

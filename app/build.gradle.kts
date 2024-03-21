@@ -54,6 +54,8 @@ android {
 }
 
 dependencies {
+    implementation ("io.coil-kt:coil-compose:1.4.0")
+
     implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
     implementation("androidx.core:core-ktx:1.9.0")
 

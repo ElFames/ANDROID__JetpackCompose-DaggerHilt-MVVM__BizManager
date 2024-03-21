@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
@@ -25,6 +26,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import fames.systems.bizmanager.R
 import fames.systems.bizmanager.infrastructure.resources.authBackgroundColor
@@ -41,7 +43,7 @@ fun EmailTextField(email: String, onLoginChange: (String) -> Unit) {
         modifier = Modifier
             .padding(horizontal = 25.dp, vertical = 7.dp)
             .border(border = BorderStroke(1.dp, buttonColor), shape = ShapeDefaults.Small)
-            .fillMaxWidth()
+            .width(Dp.Infinity)
             .height(52.dp),
         leadingIcon = {
             Icon(imageVector = Icons.Default.Email, contentDescription = "email_icon", tint = Color.White)

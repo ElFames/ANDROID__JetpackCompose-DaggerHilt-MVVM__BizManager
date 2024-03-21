@@ -32,7 +32,7 @@ fun LastPurchases(client: Client?) {
         color = Color.Black
     )
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(220.dp),
+        columns = GridCells.Adaptive(300.dp),
         modifier = Modifier.padding(10.dp)
     ) {
         client?.purchases?.sortedWith(

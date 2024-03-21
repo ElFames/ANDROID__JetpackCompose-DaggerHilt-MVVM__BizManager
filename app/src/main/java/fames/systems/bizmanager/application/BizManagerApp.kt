@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import fames.systems.bizmanager.infrastructure.navigation.bottombar.BottomBar
-import fames.systems.bizmanager.infrastructure.navigation.graphs.AppNavigationGraph
+import fames.systems.bizmanager.infrastructure.navigation.graphs.AppNavigation
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -17,6 +17,6 @@ fun BizManagerApp() {
     Scaffold(
         bottomBar = { BottomBar(navController) }
     ) {
-        AppNavigationGraph(navController)
+        AppNavigation(navController)
     }
 }

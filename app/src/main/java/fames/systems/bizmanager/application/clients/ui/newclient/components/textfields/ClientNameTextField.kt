@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
@@ -21,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import fames.systems.bizmanager.infrastructure.resources.authBackgroundColor
 import fames.systems.bizmanager.infrastructure.resources.buttonColor
@@ -36,7 +38,7 @@ fun ClientNameTextField(name: String, onInsertChange: (String) -> Unit) {
         modifier = Modifier
             .padding(horizontal = 25.dp, vertical = 7.dp)
             .border(border = BorderStroke(1.dp, buttonColor), shape = ShapeDefaults.Small)
-            .fillMaxWidth()
+            .width(Dp.Infinity)
             .height(52.dp),
         leadingIcon = {
             Icon(imageVector = Icons.Default.Person, contentDescription = "name_icon", tint = Color.Black)

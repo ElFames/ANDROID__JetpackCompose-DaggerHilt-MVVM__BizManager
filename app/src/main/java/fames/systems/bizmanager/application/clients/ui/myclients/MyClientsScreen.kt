@@ -19,36 +19,38 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import fames.systems.bizmanager.application.auth.ui.register.components.AlertDialogError
-import fames.systems.bizmanager.infrastructure.utils.HorizontalLine
-import fames.systems.bizmanager.infrastructure.utils.ShowLoadingScreen
 import fames.systems.bizmanager.application.clients.domain.models.Client
 import fames.systems.bizmanager.application.clients.ui.myclients.components.ClientInfoContainer
 import fames.systems.bizmanager.application.clients.ui.myclients.components.ClientRankingContainer
 import fames.systems.bizmanager.application.clients.ui.myclients.components.FilterClientBar
 import fames.systems.bizmanager.domain.models.UiState
-import fames.systems.bizmanager.infrastructure.utils.InsertTitle
+import fames.systems.bizmanager.infrastructure.utils.dialogs.BasicAlertDialog
+import fames.systems.bizmanager.infrastructure.utils.sharedcomponents.HorizontalLine
+import fames.systems.bizmanager.infrastructure.utils.sharedcomponents.InsertTitle
+import fames.systems.bizmanager.infrastructure.utils.sharedcomponents.ShowLoadingView
 
 @Composable
 fun MyClientsScreen(viewModel: MyClientsViewModel, navController: NavHostController) {
-    val uiState: UiState by viewModel.uiState.collectAsState()
+    val uiState: UiState by viewModel.uiState.collectAsState(UiState.IDLE)
 
     when(uiState) {
         UiState.IDLE -> viewModel.loadClients()
-        UiState.LOADING -> ShowLoadingScreen()
-        UiState.ERROR -> AlertDialogError(
+        UiState.LOADING -> ShowLoadingView()
+        UiState.ERROR -> BasicAlertDialog(
             icon = Icons.Default.Warning,
             title = "Error",
             body = "No se ha podido recuperar los clientes",
-            onConfirmation = { navController.popBackStack() }
+            color = Color.Red,
+            onConfirmation = {  }
         )
-        UiState.SUCCESS -> ShowMyClientsScreen(viewModel, navController)
+        UiState.SUCCESS -> MyClientsScreenContent(viewModel, navController)
+        UiState.PLUS -> TODO()
     }
 
 }
 
 @Composable
-fun ShowMyClientsScreen(viewModel: MyClientsViewModel, navController: NavHostController) {
+fun MyClientsScreenContent(viewModel: MyClientsViewModel, navController: NavHostController) {
     var showRanking by rememberSaveable { mutableStateOf(false) }
     val clientToSearch by viewModel.clientToSearch.observeAsState(initial = "")
     val clients by viewModel.clients.observeAsState(initial = mutableListOf())
@@ -57,11 +59,10 @@ fun ShowMyClientsScreen(viewModel: MyClientsViewModel, navController: NavHostCon
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.LightGray)
+            .background(color = Color.White)
             .padding(bottom = 70.dp)
     ) {
-        InsertTitle("Lista de Clientes")
-        HorizontalLine(color = Color.LightGray)
+        InsertTitle("Clientes")
         FilterClientBar(
             showRanking,
             clientToSearch,
@@ -78,7 +79,7 @@ fun ShowMyClientsScreen(viewModel: MyClientsViewModel, navController: NavHostCon
 @Composable
 fun ListGridClients(clients: List<Client>, navController: NavHostController) {
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(160.dp),
+        columns = GridCells.Adaptive(300.dp),
         modifier = Modifier.padding(10.dp)
     ) {
         clients.forEach { client ->

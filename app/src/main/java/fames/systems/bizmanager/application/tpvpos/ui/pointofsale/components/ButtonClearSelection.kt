@@ -14,9 +14,7 @@ import fames.systems.bizmanager.application.tpvpos.ui.pointofsale.TpvPosViewMode
 @Composable
 fun ButtonClearSelection(viewModel: TpvPosViewModel, productsSelected: MutableList<Product>) {
     Button(
-        onClick = {
-            viewModel.clearAllSelections()
-        },
+        onClick = { viewModel.clearAllSelections() },
         modifier = Modifier.padding(5.dp),
         enabled = productsSelected.size > 0,
         colors = ButtonDefaults.buttonColors(

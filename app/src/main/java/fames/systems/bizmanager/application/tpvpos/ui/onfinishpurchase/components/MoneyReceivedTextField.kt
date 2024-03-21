@@ -16,8 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import fames.systems.bizmanager.infrastructure.utils.RegularText
+import fames.systems.bizmanager.infrastructure.utils.values.RegularText
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -25,14 +26,15 @@ import fames.systems.bizmanager.infrastructure.utils.RegularText
 fun MoneyReceivedTextField(received: Double, setReceived: (Double) -> Unit) {
     Row(
         Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .padding(top = 20.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
         OutlinedTextField(
             modifier = Modifier
                 .width(200.dp)
-                .padding(30.dp, 5.dp),
+                .padding(30.dp, 8.dp),
             value = received.toString(),
             onValueChange = { setReceived(it.toDouble()) },
             singleLine = true,

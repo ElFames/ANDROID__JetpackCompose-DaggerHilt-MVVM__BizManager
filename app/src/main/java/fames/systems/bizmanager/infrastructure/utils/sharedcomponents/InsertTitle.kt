@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.infrastructure.utils
+package fames.systems.bizmanager.infrastructure.utils.sharedcomponents
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,14 +15,15 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import fames.systems.bizmanager.infrastructure.resources.buttonColor
+import fames.systems.bizmanager.infrastructure.utils.values.buttonColor
 
 @Composable
-fun InsertTitle(title: String) {
+fun InsertTitle(title: String, color: Color = Color.LightGray) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = Color.DarkGray), horizontalArrangement = Arrangement.Center
+            .background(color = color),
+        horizontalArrangement = Arrangement.Start
     ) {
         Text(
             text = title,
@@ -32,7 +33,7 @@ fun InsertTitle(title: String) {
                 fontFamily = FontFamily.Serif,
                 fontStyle = FontStyle.Italic
             ),
-            color = buttonColor,
+            color = Color.Black,
             modifier = Modifier.padding(16.dp)
         )
     }

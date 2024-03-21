@@ -4,5 +4,6 @@ enum class UiState {
     IDLE,
     LOADING,
     SUCCESS,
-    ERROR
+    ERROR,
+    PLUS
 }

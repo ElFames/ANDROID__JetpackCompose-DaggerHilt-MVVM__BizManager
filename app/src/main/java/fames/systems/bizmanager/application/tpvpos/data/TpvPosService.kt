@@ -1,6 +1,6 @@
 package fames.systems.bizmanager.application.tpvpos.data
 
-import fames.systems.bizmanager.domain.Session
+import fames.systems.bizmanager.domain.usecase.Session
 import fames.systems.bizmanager.domain.models.Purchase
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -16,8 +16,8 @@ class TpvPosService @Inject constructor(
     suspend fun onFinishPurchase(lastPurchase: Purchase): Boolean {
         return tpvPosAPI.onFinishPurchase(lastPurchase, authHeader).body() ?: false
     }
-    suspend fun sendInvoice(email: String) {
-        tpvPosAPI.sendInvoice(email, authHeader)
+    suspend fun sendInvoice(email: String): Boolean {
+        return tpvPosAPI.sendInvoice(email, authHeader).body() ?: false
     }
 
 }

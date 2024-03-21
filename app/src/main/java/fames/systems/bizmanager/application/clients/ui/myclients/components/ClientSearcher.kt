@@ -45,8 +45,8 @@ fun ClientSearcher(clientToSearch: String, onUserToSearchChange: (String) -> Uni
         shape = MaterialTheme.shapes.small,
         colors = TextFieldDefaults.outlinedTextFieldColors(
             textColor = Color.Black,
-            containerColor = Color.LightGray,
-            cursorColor = buttonColor
+            containerColor = Color.White,
+            cursorColor = Color.Black
         )
     )
 }

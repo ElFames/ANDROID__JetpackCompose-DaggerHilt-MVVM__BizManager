@@ -15,7 +15,6 @@ import fames.systems.bizmanager.infrastructure.resources.buttonColor
 fun RememberRegisterLabel(navController: NavHostController) {
     TextButton(
         onClick = { navController.navigate(AppScreens.RegisterScreen.route) },
-        modifier = Modifier.padding(80.dp, 0.dp, 0.dp, 0.dp)
     ) {
         Text(
             text = "No tienes cuenta todavía? Registrate",

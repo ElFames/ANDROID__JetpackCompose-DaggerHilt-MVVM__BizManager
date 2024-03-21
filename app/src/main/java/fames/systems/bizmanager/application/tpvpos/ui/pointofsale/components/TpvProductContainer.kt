@@ -79,7 +79,7 @@ fun TpvProductContainer(
                 Text(
                     modifier = Modifier.fillMaxHeight()
                         .border(0.dp, Color.Gray, MaterialTheme.shapes.medium)
-                        .background(Color.Gray)
+                        .background(borderColor)
                         .padding(8.dp),
                     text = unds.toString(),
                     color = Color.White,

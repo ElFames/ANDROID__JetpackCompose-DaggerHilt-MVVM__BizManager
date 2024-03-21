@@ -58,6 +58,14 @@ class RegisterViewModel @Inject constructor(
         }
     }
 
+    fun login() {
+        viewModelScope.launch {
+            _uiState.value = UiState.LOADING
+            val response = repository.login(_email.value!!, _password.value!!)
+            _uiState.value = if (response) UiState.PLUS else UiState.ERROR
+        }
+    }
+
     fun finishRegister() {
         _uiState.value = UiState.IDLE
     }

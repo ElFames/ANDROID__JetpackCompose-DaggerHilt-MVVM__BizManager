@@ -6,9 +6,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Client(
     val id: Int,
-    val name: String,
-    val email: String,
-    val phone: String,
-    val address: String,
+    var name: String,
+    var email: String,
+    var phone: String,
+    var address: String,
     val purchases: MutableList<Purchase>
 )

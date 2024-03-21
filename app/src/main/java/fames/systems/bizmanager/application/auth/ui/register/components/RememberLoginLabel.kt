@@ -14,7 +14,6 @@ import fames.systems.bizmanager.infrastructure.resources.buttonColor
 @Composable
 fun RememberLoginLabel(navController: NavHostController) {
     TextButton(
-        modifier = Modifier.padding(80.dp, 0.dp, 0.dp, 0.dp),
         onClick = {
             navController.navigate(AppScreens.LoginScreen.route)
         }

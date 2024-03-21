@@ -30,8 +30,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import fames.systems.bizmanager.application.auth.ui.register.components.AlertDialogError
-import fames.systems.bizmanager.infrastructure.utils.ShowLoadingScreen
 import fames.systems.bizmanager.application.tpvpos.ui.pointofsale.components.ButtonClearSelection
 import fames.systems.bizmanager.application.tpvpos.ui.pointofsale.components.ButtonOnFinishSelection
 import fames.systems.bizmanager.application.tpvpos.ui.pointofsale.components.ClientSelectedInfo
@@ -41,37 +39,44 @@ import fames.systems.bizmanager.application.tpvpos.ui.pointofsale.components.Tpv
 import fames.systems.bizmanager.domain.models.UiState
 import fames.systems.bizmanager.infrastructure.navigation.routes.AppScreens
 import fames.systems.bizmanager.infrastructure.navigation.routes.BottomBarScreens
-import fames.systems.bizmanager.infrastructure.utils.Formats
-import fames.systems.bizmanager.infrastructure.utils.InsertTitle
-import fames.systems.bizmanager.infrastructure.utils.RegularText
+import fames.systems.bizmanager.infrastructure.utils.dialogs.BasicAlertDialog
+import fames.systems.bizmanager.infrastructure.utils.sharedcomponents.InsertTitle
+import fames.systems.bizmanager.infrastructure.utils.sharedcomponents.ShowLoadingView
+import fames.systems.bizmanager.infrastructure.utils.values.Formats
+import fames.systems.bizmanager.infrastructure.utils.values.RegularText
 
 @Composable
 fun TpvPosScreen(viewModel: TpvPosViewModel, navController: NavHostController) {
     val uiState by viewModel.uiState.collectAsState()
 
     when (uiState) {
-        UiState.IDLE -> ShowTpvPos(viewModel = viewModel, navController = navController)
+        UiState.IDLE -> TpvPosScreenContent(viewModel = viewModel, navController = navController)
         UiState.LOADING -> {
-            ShowTpvPos(viewModel = viewModel, navController = navController)
-            ShowLoadingScreen()
+            TpvPosScreenContent(viewModel = viewModel, navController = navController)
+            ShowLoadingView()
         }
-        UiState.ERROR -> AlertDialogError(
+        UiState.ERROR -> BasicAlertDialog(
             icon = Icons.Default.Warning,
             title = "Error",
             body = "No hay conexión con el servidor",
-            onConfirmation = { viewModel.finishSelection() }
+            color = Color.Red,
+            onConfirmation = {
+                viewModel.finishSelection()
+            }
         )
 
         UiState.SUCCESS -> {
             viewModel.finishSelection()
             navController.navigate(AppScreens.PurchaseInvoicerScreen.route)
         }
+
+        UiState.PLUS -> TODO()
     }
 
 }
 
 @Composable
-fun ShowTpvPos(viewModel: TpvPosViewModel, navController: NavHostController) {
+fun TpvPosScreenContent(viewModel: TpvPosViewModel, navController: NavHostController) {
     val allProducts by viewModel.allProducts.observeAsState(initial = mutableListOf())
     val productsSelected by viewModel.productsSelected.observeAsState(initial = mutableListOf())
     val clientSelected by viewModel.clientSelected.observeAsState()
@@ -79,10 +84,11 @@ fun ShowTpvPos(viewModel: TpvPosViewModel, navController: NavHostController) {
     val isSellEnable by viewModel.isSellEnable.observeAsState(initial = true)
 
     if (!isSellEnable) {
-        AlertDialogError(
+        BasicAlertDialog(
             icon = Icons.Default.Warning,
             title = "Error",
             body = "Escoge almenos un producto",
+            color = Color.Red,
             onConfirmation = { viewModel.sellEnable() }
         )
     }

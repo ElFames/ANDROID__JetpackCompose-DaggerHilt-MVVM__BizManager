@@ -14,6 +14,5 @@ class LoadData @Inject constructor(
         clientsRepository.loadClients()
         dashboardRepository.loadStatistics()
         productsRepository.loadProducts()
-
     }
 }

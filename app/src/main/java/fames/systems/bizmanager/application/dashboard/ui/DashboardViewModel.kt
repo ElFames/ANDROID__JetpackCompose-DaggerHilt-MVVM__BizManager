@@ -7,9 +7,11 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fames.systems.bizmanager.application.dashboard.domain.DashboardRepository
 import fames.systems.bizmanager.application.dashboard.domain.models.Filter
+import fames.systems.bizmanager.application.products.domain.ProductsRepository
 import fames.systems.bizmanager.application.products.domain.models.Product
+import fames.systems.bizmanager.application.products.domain.models.SubProduct
 import fames.systems.bizmanager.domain.models.UiState
-import fames.systems.bizmanager.infrastructure.utils.Formats
+import fames.systems.bizmanager.infrastructure.utils.values.Formats
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -44,55 +46,37 @@ class DashboardViewModel @Inject constructor(
     val filter: LiveData<Filter> = _filter
 
     fun updateFilterStatistics(currentFilter: Filter) {
-        this._filter.value = currentFilter
-
         viewModelScope.launch {
-            var response = true
+            _filter.value = currentFilter
             _uiState.value = UiState.LOADING
-            response = getNumOfSales()
-            response = getExpenses()
-            response = getProfit()
-            response = getIncome()
-            response = getBestSellers()
-            response = getMoreProfit()
-            response = true // simulate a successful response
+            var response = getStatistics(currentFilter)
+            response = getBestSellers(currentFilter)
+            response = getMoreProfit(currentFilter)
             _uiState.value =
                 if (response) UiState.SUCCESS
                 else UiState.ERROR
         }
     }
 
-    private suspend fun getMoreProfit(): Boolean {
-            val newMoreProfit = repository.getMoreProfit(_filter.value!!)
-            _moreProfit.value = newMoreProfit
+    private suspend fun getMoreProfit(currentFilter: Filter): Boolean {
+        val newMoreProfit = repository.getMoreProfit(currentFilter)
+        _moreProfit.value = newMoreProfit
         return newMoreProfit.isNotEmpty()
     }
 
-    private suspend fun getBestSellers(): Boolean {
-            val newBestSellers = repository.getBestSellers(_filter.value!!)
-            _bestSellers.value = newBestSellers
+    private suspend fun getBestSellers(currentFilter: Filter): Boolean {
+        val newBestSellers = repository.getBestSellers(currentFilter)
+        _bestSellers.value = newBestSellers
         return newBestSellers.isNotEmpty()
     }
 
-    private suspend fun getNumOfSales(): Boolean {
-            val newNumOfSales = repository.getNumOfSales(_filter.value!!)
-            _numOfSales.value = newNumOfSales.toString()
-        return newNumOfSales != -1
-    }
-    private suspend fun getIncome(): Boolean {
-            val newIncome = repository.getIncome(_filter.value!!)
-            _income.value = "$newIncome $"
-        return newIncome != Formats.price(-1.0)
-    }
-    private suspend fun getExpenses(): Boolean {
-            val newExpenses = repository.getExpenses(_filter.value!!)
-            _expenses.value = "$newExpenses $"
-        return newExpenses != Formats.price(-1.0)
-    }
-    private suspend fun getProfit(): Boolean {
-            val newProfit = repository.getProfit(_filter.value!!)
-            _profit.value = "$newProfit $"
-        return newProfit != Formats.price(-1.0)
+    private suspend fun getStatistics(currentFilter: Filter): Boolean {
+        val statistics = repository.getStatistics(currentFilter)
+        _numOfSales.value =  statistics.numOfSales.toString() + " Uds"
+        _income.value = Formats.price(statistics.income) + "€"
+        _expenses.value = Formats.price(statistics.expenses) + "€"
+        _profit.value = Formats.price(statistics.profit) + "€"
+        return statistics.numOfSales != -1
     }
 
 }

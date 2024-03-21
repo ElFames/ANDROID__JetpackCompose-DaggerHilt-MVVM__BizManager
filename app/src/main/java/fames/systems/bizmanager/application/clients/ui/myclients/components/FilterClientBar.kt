@@ -35,7 +35,7 @@ fun FilterClientBar(
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = Color.DarkGray),
+            .background(color = Color.LightGray),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -49,10 +49,10 @@ fun FilterClientBar(
 
 @Composable
 private fun ShowRankingButton(showRanking: Boolean, changeShowRankingState: () -> Unit, getRankingClients: () -> Unit) {
-    val containerColor = if (showRanking) buttonColor else Color.Gray
+    val containerColor = if (showRanking) buttonColor else Color.LightGray
 
     Card(
-        modifier = Modifier.padding(13.dp),
+        modifier = Modifier.padding(10.dp),
         colors = CardDefaults.cardColors(containerColor = containerColor),
         shape = CircleShape
     ) {
@@ -60,7 +60,7 @@ private fun ShowRankingButton(showRanking: Boolean, changeShowRankingState: () -
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .padding(5.dp)
-                .size(27.dp)
+                .size(32.dp)
                 .clickable {
                     changeShowRankingState()
                     getRankingClients()
@@ -74,15 +74,15 @@ private fun ShowRankingButton(showRanking: Boolean, changeShowRankingState: () -
 @Composable
 private fun AddClientButton(navController: NavHostController) {
     Card(
-        modifier = Modifier.padding(13.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.Gray),
+        modifier = Modifier.padding(10.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.LightGray),
         shape = CircleShape
     ) {
         Image(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .padding(5.dp)
-                .size(27.dp)
+                .size(32.dp)
                 .clickable { navController.navigate(AppScreens.NewClientScreen.route) },
             painter = painterResource(id = R.drawable.add_client_icon),
             contentDescription = "info icon"

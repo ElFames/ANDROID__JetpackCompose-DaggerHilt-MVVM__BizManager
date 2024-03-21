@@ -3,6 +3,7 @@ package fames.systems.bizmanager.application.tpvpos.ui.onfinishpurchase.componen
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ShapeDefaults
@@ -10,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import fames.systems.bizmanager.application.tpvpos.ui.onfinishpurchase.PurchaseInvoicerViewModel
 import fames.systems.bizmanager.infrastructure.resources.disabledButtonColor
@@ -23,7 +25,7 @@ fun FinishPurchaseAndSendInvoiceButton(
         enabled = isClientSelected,
         shape = ShapeDefaults.Small,
         modifier = Modifier
-            .fillMaxWidth()
+            .width(Dp.Infinity)
             .height(60.dp)
             .padding(horizontal = 25.dp, vertical = 7.dp),
         colors = ButtonDefaults.buttonColors(

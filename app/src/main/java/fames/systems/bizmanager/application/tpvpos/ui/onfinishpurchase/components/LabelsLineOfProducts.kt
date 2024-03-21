@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import fames.systems.bizmanager.infrastructure.utils.BoldText
+import fames.systems.bizmanager.infrastructure.utils.values.BoldText
 
 @Composable
 fun LabelsLineOfProducts() {
@@ -16,7 +16,7 @@ fun LabelsLineOfProducts() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(12.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
+        horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
         BoldText(text = "Unidades")

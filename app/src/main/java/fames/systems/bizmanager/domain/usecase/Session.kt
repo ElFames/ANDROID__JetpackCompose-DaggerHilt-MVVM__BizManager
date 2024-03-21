@@ -1,4 +1,4 @@
-package fames.systems.bizmanager.domain
+package fames.systems.bizmanager.domain.usecase
 
 import fames.systems.bizmanager.application.auth.domain.models.MyUser
 import javax.inject.Inject

@@ -2,6 +2,7 @@ package fames.systems.bizmanager.application.clients.domain
 
 import fames.systems.bizmanager.application.clients.domain.models.Client
 import fames.systems.bizmanager.application.clients.data.ClientsService
+import fames.systems.bizmanager.application.clients.domain.models.ClientToUpdate
 import fames.systems.bizmanager.application.products.domain.models.Product
 import fames.systems.bizmanager.domain.models.Purchase
 import fames.systems.bizmanager.application.products.domain.models.SubProduct
@@ -43,11 +44,8 @@ class ClientsRepository @Inject constructor(
 
     suspend fun loadClients(): MutableList<Client> {
         return clients.ifEmpty {
-            /**
             clients = clientsService.loadClients()
-             **/
-
-            clients = clientsTest
+            //clients = clientsTest
             originalClients.addAll(clients)
             clients
         }
@@ -74,31 +72,23 @@ class ClientsRepository @Inject constructor(
         phone: String,
         address: String
     ): Pair<Boolean, String> {
-        /**
-        val reponseMessage = clientsService.insertClient(name, email, phone, address)
+        val reponse = clientsService.insertClient(name, email, phone, address)
 
-        return if (reponseMessage == "No hay conexión con el servidor" || reponseMessage == "El telefono ya está en uso") {
-        Pair(false, reponseMessage)
+        return if (!reponse.first) {
+            Pair(false, "No hay conexión con el servidor")
         } else {
-        val clientAdded = Client(
-        reponseMessage.toInt(),
-        name,
-        email,
-        phone,
-        address,
-        mutableListOf()
-        )
-        clients.add(clientAdded)
-        originalClients.add(clientAdded)
-        Pair(true, reponseMessage)
-        }**/
-
-        val id = (50..9999).random()
-        val testClient =
-            Client((id..9999999).random(), name, email, phone, address, mutableListOf())
-        clients.add(testClient)
-        originalClients.add(testClient)
-        return Pair(true, testClient.id.toString())
+            val clientAdded = Client(
+                reponse.second.toInt(),
+                name,
+                email,
+                phone,
+                address,
+                mutableListOf()
+            )
+            clients.add(clientAdded)
+            originalClients.add(clientAdded)
+            Pair(true, "Cliente añadido con éxito")
+        }
     }
 
     fun getClient(clientId: String): Client {
@@ -114,49 +104,35 @@ class ClientsRepository @Inject constructor(
         lastClientViewed = client
     }
 
-    fun updateClient(newClient: Client): Boolean {
-        val response = clientsService.updateClient(newClient)
+    suspend fun updateClient(
+        clientId: Int,
+        name: String,
+        email: String,
+        phone: String,
+        address: String
+    ): Boolean {
+        val clientToUpdate = ClientToUpdate(clientId.toString(), name, email, phone, address)
+        val response = clientsService.updateClient(clientToUpdate)
         return if (response) {
-            val index = clients.indexOfFirst { it.id == newClient.id }
-            clients[index] = newClient
-            val originalIndex = originalClients.indexOfFirst { it.id == newClient.id }
-            originalClients[originalIndex] = newClient
+            val index = clients.indexOfFirst { it.id == clientId }
+            clients[index].apply {
+                this.name = name
+                this.email = email
+                this.phone = phone
+                this.address = address
+            }
+            val originalIndex = originalClients.indexOfFirst { it.id == clientId }
+            originalClients[originalIndex].apply {
+                this.name = name
+                this.email = email
+                this.phone = phone
+                this.address = address
+            }
+
             true
-        } else false
+        } else {
+            false
+        }
     }
 
-}
-
-val clientsTest = MutableList(14) { clientId ->
-    Client(
-        id = clientId,
-        name = "Cliente $clientId",
-        email = "cliente$clientId@example.com",
-        phone = "123-456-7890",
-        address = "jacint verdaguer 7A 4-1",
-        purchases = MutableList(20) { purchaseId ->
-            Purchase(
-                id = UUID.randomUUID().toString(),
-                products = MutableList(3) { productId ->
-                    Product(
-                        id = UUID.randomUUID().toString(),
-                        name = "Producto $purchaseId",
-                        sellPrice = 10.0 + clientId * 5,
-                        expenses = MutableList(5) {
-                            SubProduct(
-                                id = UUID.randomUUID().toString(),
-                                name = "SubProducto $clientId",
-                                costPrice = 5.0,
-                                quantity = clientId + 1,
-                                quantityCurrency = if (purchaseId % 2 == 0) "g" else "ml"
-                            )
-                        }
-                    )
-                },
-                dateTime = getCurrentDateTime(),
-                totalPrice = 35.50,
-                null
-            )
-        }
-    )
 }

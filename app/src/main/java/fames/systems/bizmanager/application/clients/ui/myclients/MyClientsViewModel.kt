@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import fames.systems.bizmanager.application.clients.domain.ClientsRepository
 import fames.systems.bizmanager.application.clients.domain.models.Client
 import fames.systems.bizmanager.domain.models.UiState
-import fames.systems.bizmanager.infrastructure.utils.Formats
+import fames.systems.bizmanager.infrastructure.utils.values.Formats
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -18,7 +18,6 @@ import javax.inject.Inject
 class MyClientsViewModel @Inject constructor(
     private val repository: ClientsRepository
 ): ViewModel() {
-
     private val _uiState = MutableStateFlow(UiState.IDLE)
     val uiState: StateFlow<UiState> = _uiState
 

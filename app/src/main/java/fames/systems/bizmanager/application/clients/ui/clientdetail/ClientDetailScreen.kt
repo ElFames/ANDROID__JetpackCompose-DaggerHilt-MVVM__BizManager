@@ -27,14 +27,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import fames.systems.bizmanager.application.auth.ui.register.components.AlertDialogError
-import fames.systems.bizmanager.infrastructure.utils.ShowLoadingScreen
+import fames.systems.bizmanager.application.clients.domain.models.Client
 import fames.systems.bizmanager.application.clients.ui.clientdetail.components.ClientDataContainer
-import fames.systems.bizmanager.infrastructure.utils.ScreenTitleWithBackButton
 import fames.systems.bizmanager.application.clients.ui.clientdetail.components.LastPurchases
 import fames.systems.bizmanager.domain.models.UiState
 import fames.systems.bizmanager.infrastructure.navigation.routes.AppScreens
 import fames.systems.bizmanager.infrastructure.navigation.routes.BottomBarScreens
+import fames.systems.bizmanager.infrastructure.utils.sharedcomponents.TitleWithBackButton
+import fames.systems.bizmanager.infrastructure.utils.dialogs.BasicAlertDialog
+import fames.systems.bizmanager.infrastructure.utils.sharedcomponents.ShowLoadingView
 
 @Composable
 fun ClientDetailScreen(
@@ -46,14 +47,16 @@ fun ClientDetailScreen(
     
     when(uiState) {
         UiState.IDLE -> viewModel.getClient(clientId)
-        UiState.LOADING -> ShowLoadingScreen()
-        UiState.ERROR -> AlertDialogError(
+        UiState.LOADING -> ShowLoadingView()
+        UiState.ERROR -> BasicAlertDialog(
             icon = Icons.Default.Warning,
             title = "Error",
             body = "No se ha podido cargar el cliente",
+            color = Color.Red,
             onConfirmation = { navController.popBackStack() }
         )
         UiState.SUCCESS -> ShowClientDetailScreen(viewModel, navController)
+        UiState.PLUS -> TODO()
     }
 }
 
@@ -70,28 +73,33 @@ fun ShowClientDetailScreen(
         modifier = Modifier.fillMaxSize(),
         shape = RectangleShape
     ) {
-        ScreenTitleWithBackButton(title = "Detalles del cliente ${client?.id}", navController)
-        Row(modifier = Modifier.fillMaxWidth().padding(13.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.End
-        ) {
-            Image(modifier = Modifier
-                .border(1.dp, Color.DarkGray, shape = MaterialTheme.shapes.medium)
-                .padding(5.dp)
-                .clickable { navController.navigate(AppScreens.EditClientScreen.route + "/${client?.id}") },
-                imageVector = Icons.Default.Edit,
-                contentDescription = "edit_icon"
-            )
-            Spacer(modifier = Modifier.width(10.dp))
-            Image(modifier = Modifier
-                .border(1.dp, Color.DarkGray, shape = MaterialTheme.shapes.medium)
-                .padding(5.dp)
-                .clickable { navController.navigate(BottomBarScreens.TpvPosScreen.route) },
-                imageVector = Icons.Default.ShoppingCart,
-                contentDescription = "init_purchase_icon"
-            )
-        }
+        TitleWithBackButton(title = "Detalles del cliente ${client?.id}", navController)
+        ClientDetailTopToolbar(client, navController)
         ClientDataContainer(client)
         LastPurchases(client)
+    }
+}
+
+@Composable
+fun ClientDetailTopToolbar(client: Client?, navController: NavHostController) {
+    Row(modifier = Modifier.fillMaxWidth().padding(13.dp,13.dp,13.dp, bottom = 0.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.End
+    ) {
+        Image(modifier = Modifier
+            .border(1.dp, Color.DarkGray, shape = MaterialTheme.shapes.medium)
+            .padding(5.dp)
+            .clickable { navController.navigate(AppScreens.EditClientScreen.route + "/${client?.id}") },
+            imageVector = Icons.Default.Edit,
+            contentDescription = "edit_icon"
+        )
+        Spacer(modifier = Modifier.width(10.dp))
+        Image(modifier = Modifier
+            .border(1.dp, Color.DarkGray, shape = MaterialTheme.shapes.medium)
+            .padding(5.dp)
+            .clickable { navController.navigate(BottomBarScreens.TpvPosScreen.route) },
+            imageVector = Icons.Default.ShoppingCart,
+            contentDescription = "init_purchase_icon"
+        )
     }
 }

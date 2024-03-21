@@ -9,8 +9,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import fames.systems.bizmanager.application.products.domain.models.Product
-import fames.systems.bizmanager.infrastructure.utils.Formats
-import fames.systems.bizmanager.infrastructure.utils.RegularText
+import fames.systems.bizmanager.infrastructure.utils.values.Formats
+import fames.systems.bizmanager.infrastructure.utils.values.RegularText
 
 @Composable
 fun LineOfProduct(it: Product) {
@@ -18,7 +18,7 @@ fun LineOfProduct(it: Product) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(15.dp, 8.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
+        horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
         RegularText(text = it.unds.toString())

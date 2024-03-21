@@ -2,7 +2,7 @@ package fames.systems.bizmanager.application.auth.data
 
 import fames.systems.bizmanager.application.auth.domain.models.MyUser
 import fames.systems.bizmanager.application.auth.domain.models.UserForRegister
-import fames.systems.bizmanager.domain.Session
+import fames.systems.bizmanager.domain.usecase.Session
 import javax.inject.Inject
 import javax.inject.Singleton
 

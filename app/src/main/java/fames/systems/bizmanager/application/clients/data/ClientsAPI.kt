@@ -2,7 +2,9 @@ package fames.systems.bizmanager.application.clients.data
 
 import fames.systems.bizmanager.application.clients.domain.models.Client
 import fames.systems.bizmanager.application.clients.domain.models.ClientToInsert
+import fames.systems.bizmanager.application.clients.domain.models.ClientToUpdate
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
@@ -18,10 +20,17 @@ interface ClientsAPI {
     ): Response<MutableList<Client>>
 
     @Headers("Content-Type: application/json")
-    @PUT("client/insert/{clientToInsert}")
+    @PUT("client/insert")
     suspend fun insertClient(
-        @Path("clientToInsert") clientToInsert: ClientToInsert,
+        @Body clientToInsert: ClientToInsert,
         @Header("Authorization") authHeader: String
     ): Response<String>
+
+    @Headers("Content-Type: application/json")
+    @PUT("client/update")
+    suspend fun updateClient(
+        @Body clientToUpdate: ClientToUpdate,
+        @Header("Authorization") authHeader: String
+    ): Response<Boolean>
 
 }

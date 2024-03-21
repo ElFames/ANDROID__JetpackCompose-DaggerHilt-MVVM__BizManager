@@ -1,7 +1,8 @@
-package fames.systems.bizmanager.application.clients.ui.newclient.components
+package fames.systems.bizmanager.infrastructure.utils.sharedcomponents
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -13,34 +14,37 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.airbnb.lottie.RenderMode
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import fames.systems.bizmanager.R
 
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun LoadingClientInsert() {
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading_animation_circle))
+fun ShowLoadingView() {
     var isPlaying by rememberSaveable { mutableStateOf(true) }
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading_animation_circle))
     val progress by animateLottieCompositionAsState(composition = composition, isPlaying = isPlaying)
 
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(color = Color.LightGray),
-        contentAlignment = Alignment.Center
+    Column(
+        modifier = Modifier
+            .background(color = Color.Transparent)
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         LottieAnimation(
-            modifier = Modifier.size(300.dp),
+            modifier = Modifier.size(150.dp),
             composition = composition,
-            progress = {progress}
+            progress = { progress },
+            renderMode = RenderMode.AUTOMATIC,
         )
         LaunchedEffect(key1 = progress) {
             if (progress == 1f) isPlaying = false
             if (progress == 0f) isPlaying = true
+            if (!isPlaying) isPlaying = true
         }
     }
 }

@@ -13,8 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import fames.systems.bizmanager.infrastructure.utils.RegularText
+import fames.systems.bizmanager.infrastructure.utils.values.RegularText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -22,7 +23,7 @@ fun MoneyForReturnTextField(price: String) {
     Row(
         Modifier
             .fillMaxWidth()
-            .padding(bottom = 15.dp),
+            .padding(bottom = 20.dp, top = 20.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {

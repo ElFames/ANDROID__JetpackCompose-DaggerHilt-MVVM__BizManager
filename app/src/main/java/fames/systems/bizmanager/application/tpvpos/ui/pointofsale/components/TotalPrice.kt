@@ -8,8 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import fames.systems.bizmanager.infrastructure.utils.BoldText
-import fames.systems.bizmanager.infrastructure.utils.Formats
+import fames.systems.bizmanager.infrastructure.utils.values.BoldText
+import fames.systems.bizmanager.infrastructure.utils.values.Formats
 
 @Composable
 fun TotalPrice(totalPrice: Double?) {

@@ -2,7 +2,11 @@ package fames.systems.bizmanager.application.dashboard.domain
 
 import fames.systems.bizmanager.application.dashboard.domain.models.Filter
 import fames.systems.bizmanager.application.dashboard.data.DashboardService
+import fames.systems.bizmanager.application.dashboard.domain.models.MyStatistics
 import fames.systems.bizmanager.application.products.domain.models.Product
+import fames.systems.bizmanager.domain.models.getMonthRangeDate
+import fames.systems.bizmanager.domain.models.getTodayRangeDate
+import fames.systems.bizmanager.domain.models.getWeekRangeDate
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -10,63 +14,47 @@ import javax.inject.Singleton
 class DashboardRepository @Inject constructor(
     private val dashboardService: DashboardService
 ) {
-    private val format: (Double) -> String = { "%.2f".format(it).replace('.', ',') }
     private var numOfSales: Int? = null
     private var profit: Double? = null
     private var expenses: Double? = null
     private var income: Double? = null
+    private var statistics = MyStatistics(numOfSales?:-1, profit?:-1.0, expenses?:-1.0, income?:-1.0)
     private var productsMoreProfit: MutableList<Product>? = null
     private var productsBestSeller: MutableList<Product>? = null
     private var currentFilter = Filter.DIA
 
     suspend fun loadStatistics() {
-        getNumOfSales(Filter.DIA)
-        getProfit(Filter.DIA)
-        getExpenses(Filter.DIA)
-        getIncome(Filter.DIA)
+        getStatistics(Filter.DIA)
         getBestSellers(Filter.DIA)
         getMoreProfit(Filter.DIA)
     }
-    suspend fun getNumOfSales(filter: Filter): Int {
-        return if (numOfSales == null || numOfSales == -1 || currentFilter != filter) {
+    suspend fun getStatistics(filter: Filter): MyStatistics {
+        return if (statistics.numOfSales == -1 || currentFilter != filter) {
+            val rangeDate = when(filter) {
+                Filter.DIA -> getTodayRangeDate()
+                Filter.SEMANA -> getWeekRangeDate()
+                Filter.MES -> getMonthRangeDate()
+            }
             currentFilter = filter
-            val currentNumOfSales = dashboardService.getNumOfSales(filter)
-            numOfSales = currentNumOfSales
-            currentNumOfSales
-        } else numOfSales!!
-    }
-
-    suspend fun getProfit(filter: Filter): String {
-        return if (profit == null || profit == -1.0 || currentFilter != filter) {
-            currentFilter = filter
-            val currentProfit = dashboardService.getProfit(filter)
-            profit = currentProfit
-            format(currentProfit)
-        } else format(profit!!)
-    }
-
-    suspend fun getExpenses(filter: Filter): String {
-        return if (expenses == null || expenses == -1.0 || currentFilter != filter) {
-            currentFilter = filter
-            val currentExpenses = dashboardService.getExpenses(filter)
-            expenses = currentExpenses
-            format(currentExpenses)
-        } else format(expenses!!)
-    }
-
-    suspend fun getIncome(filter: Filter): String {
-        return if (income == null || income == -1.0 || currentFilter != filter) {
-            currentFilter = filter
-            val currentIncome = dashboardService.getIncome(filter)
-            income = currentIncome
-            format(currentIncome)
-        } else format(income!!)
+            val currentStatistics = dashboardService.getStatistics(filter, rangeDate)
+            numOfSales = currentStatistics.numOfSales
+            profit = currentStatistics.profit
+            expenses = currentStatistics.expenses
+            income = currentStatistics.income
+            statistics = currentStatistics
+            currentStatistics
+        } else statistics
     }
 
     suspend fun getMoreProfit(filter: Filter): MutableList<Product> {
         return if (productsMoreProfit.isNullOrEmpty() || currentFilter != filter) {
+            val rangeDate = when(filter) {
+                Filter.DIA -> getTodayRangeDate()
+                Filter.SEMANA -> getWeekRangeDate()
+                Filter.MES -> getMonthRangeDate()
+            }
             currentFilter = filter
-            val currentProductsMoreProfit = dashboardService.getMoreProfit(filter)
+            val currentProductsMoreProfit = dashboardService.getMoreProfit(rangeDate)
             productsMoreProfit = currentProductsMoreProfit
             currentProductsMoreProfit
         } else productsMoreProfit!!
@@ -74,8 +62,13 @@ class DashboardRepository @Inject constructor(
 
     suspend fun getBestSellers(filter: Filter): MutableList<Product> {
         return if (productsBestSeller.isNullOrEmpty() || currentFilter != filter) {
+            val rangeDate = when(filter) {
+                Filter.DIA -> getTodayRangeDate()
+                Filter.SEMANA -> getWeekRangeDate()
+                Filter.MES -> getMonthRangeDate()
+            }
             currentFilter = filter
-            val currentProductsBestSellers = dashboardService.getBestSeller(filter)
+            val currentProductsBestSellers = dashboardService.getBestSeller(rangeDate)
             productsBestSeller = currentProductsBestSellers
             currentProductsBestSellers
         } else productsBestSeller!!

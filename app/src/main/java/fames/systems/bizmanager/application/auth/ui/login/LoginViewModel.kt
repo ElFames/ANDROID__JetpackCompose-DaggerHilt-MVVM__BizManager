@@ -20,7 +20,7 @@ class LoginViewModel @Inject constructor(
     private val repository: AuthRepository,
     private val loadData: LoadData
 ): ViewModel() {
-    private val _uiState = MutableStateFlow(UiState.SUCCESS) // for direct login without UI interaction (testing)
+    private val _uiState = MutableStateFlow(UiState.IDLE)
     val uiState: StateFlow<UiState> = _uiState
 
     private val _email = MutableLiveData<String>()
@@ -48,14 +48,8 @@ class LoginViewModel @Inject constructor(
     fun onLoginSelected(email: String, password: String) {
         viewModelScope.launch {
             _uiState.value = UiState.LOADING
-
-            delay(3000) // simulate network delay
-
-            var response = repository.login(email, password)
-            response = true // simulate login success
-
-            _uiState.value =
-                if (response) UiState.SUCCESS else UiState.ERROR
+            val response = repository.login(email, password)
+            _uiState.value = if (response) UiState.SUCCESS else UiState.ERROR
         }
     }
 

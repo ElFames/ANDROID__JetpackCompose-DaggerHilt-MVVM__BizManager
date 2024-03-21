@@ -6,9 +6,11 @@ import kotlinx.serialization.Serializable
 data class Product(
     val id: String,
     var name: String,
+    var description: String,
     var unds: Int = 0,
     var sellPrice: Double,
-    val expenses: MutableList<SubProduct>
+    var expenses: MutableList<SubProduct>,
+    var imageUrl: String? = null
 )
 
 @Serializable

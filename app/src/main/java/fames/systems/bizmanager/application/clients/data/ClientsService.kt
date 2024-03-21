@@ -1,9 +1,9 @@
 package fames.systems.bizmanager.application.clients.data
 
-import androidx.compose.runtime.structuralEqualityPolicy
 import fames.systems.bizmanager.application.clients.domain.models.Client
 import fames.systems.bizmanager.application.clients.domain.models.ClientToInsert
-import fames.systems.bizmanager.domain.Session
+import fames.systems.bizmanager.application.clients.domain.models.ClientToUpdate
+import fames.systems.bizmanager.domain.usecase.Session
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,13 +18,25 @@ class ClientsService @Inject constructor(
         return clientsAPI.loadClients("clients/loadAll", authHeader).body() ?: mutableListOf()
     }
 
-    suspend fun insertClient(name: String, email: String, phone: String, address: String): String {
+    suspend fun insertClient(
+        name: String,
+        email: String,
+        phone: String,
+        address: String
+    ): Pair<Boolean, String> {
         val clientToInsert = ClientToInsert(name, email, phone, address)
-        return clientsAPI.insertClient(clientToInsert, authHeader).body() ?: "No hay conexión con el servidor"
+        // response es el id del cliente añadido en el servidor para poder añadirlo en local
+        val response = clientsAPI.insertClient(clientToInsert, authHeader).body()
+        return if (response != null) {
+            Pair(true, response)
+        } else {
+            Pair(false, "")
+        }
+
     }
 
-    fun updateClient(newClient: Client): Boolean {
-        return true
+    suspend fun updateClient(clientToUpdate: ClientToUpdate): Boolean {
+        return clientsAPI.updateClient(clientToUpdate, authHeader).body() ?: false
     }
 
 }
